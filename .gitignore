@@ -1,0 +1,64 @@
+# 디폴트 무시된 파일
+/shelf/
+/.idea/workspace.xml
+# 에디터 기반 HTTP 클라이언트 요청
+/httpRequests/
+# Datasource local storage ignored files
+/dataSources/
+/dataSources.local.xml
+
+### IntelliJ ###
+.idea/
+*.iml
+out/
+build/
+.gradle/
+!gradle/wrapper/gradle-wrapper.jar
+
+### Mac ###
+.DS_Store
+
+### Logs ###
+logs/
+*.log
+
+### OS ###
+Thumbs.db
+
+### Spring Boot ###
+/target/
+/bin/
+/tmp/
+/test-output/
+/.mvn/
+
+### Database ###
+*.db
+*.h2.db
+*.mv.db
+*.trace.db
+
+### Cache ###
+.cache/
+.classpath
+.project
+.settings/
+.vscode/
+**/__pycache__/
+*.class
+
+### Application ###
+/.env
+application-local.yml
+application-test.yml
+application-prod.yml
+
+### Node (if front included) ###
+node_modules/
+
+### Git ###
+.shelf/
+workspace.xml
+httpRequests/
+dataSources/
+dataSources.local.xml
