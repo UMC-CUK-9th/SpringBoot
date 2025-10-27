@@ -69,6 +69,7 @@ public class Member extends BaseEntity {
     private LocalDateTime inactiveDate;
 
     // 연관관계 매핑
+    // 4주차 피드백 반영 - CascadeType.REMOVE 삭제
     @OneToMany(mappedBy = "member")
     private List<MemberMission> missions = new ArrayList<>();
 

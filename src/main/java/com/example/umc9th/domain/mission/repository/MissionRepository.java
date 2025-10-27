@@ -10,7 +10,7 @@ import java.util.List;
 
 public interface MissionRepository extends JpaRepository<Mission, Long> {
 
-    // 4. 홈 화면 쿼리-2
+    // 5주차 미션 - 4. 홈 화면 쿼리-2
     @Query("""
         SELECT m
         FROM Mission m
