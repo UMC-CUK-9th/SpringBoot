@@ -7,6 +7,7 @@ import com.example.umc9th.global.entity.BaseEntity;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -30,7 +31,7 @@ public class Mission extends BaseEntity {
     private String content;
 
     @Column(name = "deadline", nullable = false)
-    private Long deadline;
+    private LocalDateTime deadline;
 
     @Column(name = "point", nullable = false)
     private Long point;
@@ -42,7 +43,7 @@ public class Mission extends BaseEntity {
     @Enumerated(EnumType.STRING)
     private Status status;
 
-    @OneToMany(mappedBy = "mission", cascade = CascadeType.REMOVE)
+    @OneToMany(mappedBy = "mission")
     private List<MemberMission> memberMissions = new ArrayList<>();
 }
 

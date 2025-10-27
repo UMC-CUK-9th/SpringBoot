@@ -6,14 +6,12 @@ import com.example.umc9th.domain.member.entity.mapping.MemberMission;
 import com.example.umc9th.domain.member.entity.mapping.MemberNotification;
 import com.example.umc9th.domain.member.entity.mapping.MemberTerms;
 import com.example.umc9th.domain.member.enums.Gender;
-import com.example.umc9th.domain.member.enums.Login;
+import com.example.umc9th.domain.member.enums.LoginType;
 import com.example.umc9th.domain.member.enums.Status;
 import com.example.umc9th.domain.review.entity.Review;
 import com.example.umc9th.global.entity.BaseEntity;
 import jakarta.persistence.*;
 import lombok.*;
-import org.springframework.data.annotation.CreatedDate;
-import org.springframework.data.annotation.LastModifiedDate;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -33,9 +31,9 @@ public class Member extends BaseEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY) // 생성 전략을 선택한다. IDENTITY인 경우, 순차적 생성(1 → 2 → …)을 의미한다.
     private Long id;
 
-    @Column(name = "login", nullable = false)
+    @Column(name = "loginType", nullable = false)
     @Enumerated(EnumType.STRING) // Enum을 사용할 때, 데이터의 형태를 명시화한다.
-    private Login login;
+    private LoginType loginType;
 
     @Column(name = "name", length = 10, nullable = false) // DB의 속성 부분을 의미한다.
     private String name;
@@ -71,21 +69,21 @@ public class Member extends BaseEntity {
     private LocalDateTime inactiveDate;
 
     // 연관관계 매핑
-    @OneToMany(mappedBy = "member", cascade = CascadeType.REMOVE)
+    @OneToMany(mappedBy = "member")
     private List<MemberMission> missions = new ArrayList<>();
 
-    @OneToMany(mappedBy = "member", cascade = CascadeType.REMOVE)
+    @OneToMany(mappedBy = "member")
     private List<MemberTerms> terms = new ArrayList<>();
 
-    @OneToMany(mappedBy = "member", cascade = CascadeType.REMOVE)
+    @OneToMany(mappedBy = "member")
     private List<MemberFoodType> foodTypes = new ArrayList<>();
 
-    @OneToMany(mappedBy = "member", cascade = CascadeType.REMOVE)
+    @OneToMany(mappedBy = "member")
     private List<MemberNotification> notifications = new ArrayList<>();
 
-    @OneToMany(mappedBy = "member", cascade = CascadeType.REMOVE)
+    @OneToMany(mappedBy = "member")
     private List<Inquiry> inquiries = new ArrayList<>();
 
-    @OneToMany(mappedBy = "member", cascade = CascadeType.REMOVE)
+    @OneToMany(mappedBy = "member")
     private List<Review> reviews = new ArrayList<>();
 }
