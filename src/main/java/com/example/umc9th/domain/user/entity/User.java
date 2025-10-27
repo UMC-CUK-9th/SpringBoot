@@ -21,8 +21,7 @@ import java.util.List;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
 @Getter
-@Table(name = "user")
-@EntityListeners(AuditingEntityListener.class)
+@Table(name = "tb_user")
 public class User extends BaseEntity {
 
     @Id

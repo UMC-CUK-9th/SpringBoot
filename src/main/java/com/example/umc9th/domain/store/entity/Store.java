@@ -23,8 +23,8 @@ public class Store extends BaseEntity {
     @Column(name = "detail_address", nullable = false)
     private String detailAddress;
 
-    @Column(name = "oner_number",  nullable = false)
-    private Long onerNumber;
+    @Column(name = "owner_number",  nullable = false)
+    private Long ownerNumber;
 
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "location_id")

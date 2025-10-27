@@ -21,7 +21,7 @@ public class UserMission extends BaseEntity {
     private boolean isComplete;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_id")
+    @JoinColumn(name = "tb_user_id")
     private User user;
 
     @ManyToOne(fetch = FetchType.LAZY)
