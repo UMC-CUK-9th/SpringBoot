@@ -2,6 +2,7 @@ package com.example.umc9th.domain.usermission.entity;
 
 import com.example.umc9th.domain.mission.entity.Mission;
 import com.example.umc9th.domain.user.entity.User;
+import com.example.umc9th.global.BaseEntity;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -14,7 +15,7 @@ import java.time.LocalDateTime;
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
 @Table(name = "user_mission")
 
-public class UserMission {
+public class UserMission extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

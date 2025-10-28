@@ -1,6 +1,7 @@
 package com.example.umc9th.domain.user.entity;
 
 import com.example.umc9th.domain.review.entity.Review;
+import com.example.umc9th.global.BaseEntity;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -15,7 +16,7 @@ import java.util.List;
 @Getter
 @Table(name = "users")
 
-public class User {
+public class User extends BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -45,6 +46,6 @@ public class User {
     @Column(name = "user_phone_number", length = 15, nullable = false)
     private String userPhoneNumber;
 
-    @OneToMany(mappedBy = "users",cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "users")
     private List<Review> stores = new ArrayList<>();
 }

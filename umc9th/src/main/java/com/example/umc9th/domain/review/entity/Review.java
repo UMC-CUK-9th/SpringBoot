@@ -1,14 +1,10 @@
 package com.example.umc9th.domain.review.entity;
 
-import com.example.umc9th.domain.reviewImg.entity.ReviewImg;
 import com.example.umc9th.domain.store.entity.Store;
 import com.example.umc9th.domain.user.entity.User;
+import com.example.umc9th.global.BaseEntity;
 import jakarta.persistence.*;
 import lombok.*;
-
-import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
 
 @Entity
 @Builder
@@ -18,7 +14,7 @@ import java.util.List;
 @Table(name = "review")
 
 
-public class Review {
+public class Review extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -30,9 +26,6 @@ public class Review {
     @Column(name = "review_content")
     private String reviewContent;
 
-    @Column(name = "created_at",nullable = false)
-    private LocalDateTime createdAt;
-
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id",nullable = false)
     private User user;
@@ -40,8 +33,5 @@ public class Review {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "store_id",nullable = false)
     private Store store;
-
-    @OneToMany(mappedBy = "review",cascade = CascadeType.ALL)
-    private List<ReviewImg> reviews = new ArrayList<>();
 
 }

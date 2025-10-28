@@ -2,6 +2,7 @@ package com.example.umc9th.domain.mission.entity;
 
 import com.example.umc9th.domain.region.entity.Region;
 import com.example.umc9th.domain.store.entity.Store;
+import com.example.umc9th.global.BaseEntity;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -14,7 +15,7 @@ import java.time.LocalDateTime;
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
 @Table(name = "mission")
 
-public class Mission {
+public class Mission extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
