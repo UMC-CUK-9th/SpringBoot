@@ -37,11 +37,11 @@ public class User extends BaseEntity {
     @Column(name = "user_status", nullable = false)
     private UserStatus userStatus;
 
-    @Column
-    private Long user_point;
+    @Column(name = "user_point")
+    private Long userPoint;
 
-    @Column
-    private LocalDateTime inactive_date;
+    @Column(name = "inactive_date")
+    private LocalDateTime inactiveDate;
 
     @Column(name = "user_phone_number", length = 15, nullable = false)
     private String userPhoneNumber;
