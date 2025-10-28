@@ -28,10 +28,10 @@ public class Region {
     @Column(name = "region_address", nullable = false)
     private String regionAddress;
 
-    @OneToMany(mappedBy = "region", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "region")
     public List<Store> stores = new ArrayList<>();
 
-    @OneToMany(mappedBy = "region",cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "region")
     public List<Mission> missions = new ArrayList<>();
 
 }

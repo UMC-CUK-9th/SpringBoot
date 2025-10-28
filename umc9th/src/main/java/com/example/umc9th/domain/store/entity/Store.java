@@ -42,10 +42,10 @@ public class Store {
     @JoinColumn(name = "region_id",nullable = false)
     private Region region;
 
-    @OneToMany(mappedBy = "store",cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "store")
     private List<Review> reviews = new ArrayList<>();
 
-    @OneToMany(mappedBy = "store",cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "store")
     private List<Mission> missions = new ArrayList<>();
 
 }
