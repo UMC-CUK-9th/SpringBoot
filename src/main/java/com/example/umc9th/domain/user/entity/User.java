@@ -21,7 +21,7 @@ import java.util.List;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
 @Getter
-@Table(name = "tb_user")
+@Table(name = "tb_user") //4주차 피드백 user 이름 변경 -> tb_user
 public class User extends BaseEntity {
 
     @Id

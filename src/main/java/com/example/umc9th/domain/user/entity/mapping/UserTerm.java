@@ -12,7 +12,7 @@ import lombok.*;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
 @Getter
-@Table(name = "user_term")
+@Table(name = "user_term") //4주차 피드백 BaseEntity 상속
 public class UserTerm extends BaseEntity {
 
     @Id
@@ -20,7 +20,7 @@ public class UserTerm extends BaseEntity {
     private Long id;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "tb_user_id")
+    @JoinColumn(name = "tb_user_id") // 4주차 피드백 이름 변경
     private User user;
 
     @ManyToOne(fetch = FetchType.LAZY)
