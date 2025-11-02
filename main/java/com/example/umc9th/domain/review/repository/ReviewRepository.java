@@ -13,9 +13,6 @@ import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.data.jpa.repository.QueryHints;
 
 public interface ReviewRepository extends JpaRepository<Review,Long>{
-    @Query("SELECT r FROM Review r JOIN FETCH r.user WHERE r.store.id = :storeID ORDER BY r.id DESC")
-    List<Review> findByStoreID(@Param("storeID") Long storeID);
-
     @Query("SELECT AVG(r.star) FROM Review r WHERE r.store.id = :storeID")
     Double findAverageStarByStoreId(@Param("storeID") Long storeID);
 

@@ -29,7 +29,7 @@ public interface MissionRepository extends JpaRepository<Mission, Long> {
           AND (um.id IS NULL OR um.isComplete = FALSE)
         ORDER BY m.id DESC
     """)
-    List<MissionDto> findAvailableMissionsByLocation(
+    Page<MissionDto> findAvailableMissionsByLocation(
             @Param("locationName") String locationName,
             @Param("userId") Long userId,
             Pageable pageable
