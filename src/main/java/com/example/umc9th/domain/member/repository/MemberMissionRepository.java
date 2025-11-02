@@ -11,7 +11,7 @@ import java.util.List;
 
 public interface MemberMissionRepository extends JpaRepository<MemberMission, Long> {
 
-    // 3. 내가 진행중, 진행 완료한 미션 모아서 보는 쿼리
+    // 5주차 미션 - 3. 내가 진행중, 진행 완료한 미션 모아서 보는 쿼리
     // 진행중(ONGOING) 미션 목록
     @Query("""
         SELECT ms

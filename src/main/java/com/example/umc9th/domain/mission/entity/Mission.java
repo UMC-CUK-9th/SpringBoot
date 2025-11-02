@@ -43,6 +43,7 @@ public class Mission extends BaseEntity {
     @Enumerated(EnumType.STRING)
     private Status status;
 
+    // 4주차 피드백 반영 - CascadeType.REMOVE 삭제
     @OneToMany(mappedBy = "mission")
     private List<MemberMission> memberMissions = new ArrayList<>();
 }
