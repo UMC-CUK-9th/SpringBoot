@@ -22,4 +22,8 @@ public class BaseEntity {
     @LastModifiedDate
     @Column(name = "updated_at", nullable = false)
     private LocalDateTime updatedAt;
+
+    //5주차 수정, deleted_at 추가
+    @Column(name = "deleted_at")
+    private LocalDateTime deletedAt;
 }
