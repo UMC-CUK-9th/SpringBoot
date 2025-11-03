@@ -1,12 +1,21 @@
 package com.example.umc9th.domain.usermission.repository;
 
 import com.example.umc9th.domain.usermission.entity.UserMission;
-import com.example.umc9th.domain.usermission.entity.UserMissionStatus;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 
 import java.util.List;
 
 public interface UserMissionRepository extends JpaRepository<UserMission, Long> {
 
-    List<UserMission> findByUserIdAndUserMissionStatus(Long userId, UserMissionStatus userMissionStatus);
+    @Query("""
+        SELECT m.missionPoint, m.missionStatus, m.missionContent, s.storeName
+        FROM UserMission um
+        JOIN um.mission m
+        JOIN m.store s
+        WHERE um.user.id = :userId
+          AND um.userMissionStatus = 'COMPLETE'
+        """)
+    List<Object[]> findCompletedMissionsByUserId(@Param("userId") Long userId);
 }
