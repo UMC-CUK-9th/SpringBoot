@@ -1,11 +1,14 @@
 package com.example.umc9th.domain.review.dto;
 
-import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @Getter
-@AllArgsConstructor
+@Setter
+@NoArgsConstructor
 public class ReviewResponseDto {
+    private Long id;
     private String restaurantName;
     private int grade;
     private String content;
