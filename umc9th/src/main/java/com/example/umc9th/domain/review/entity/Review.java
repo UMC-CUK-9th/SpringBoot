@@ -21,7 +21,7 @@ public class Review extends BaseEntity {
     private Long id;
 
     @Column(name = "favorite",nullable = false)
-    private Integer favorite;
+    private Double favorite;
 
     @Column(name = "review_content")
     private String reviewContent;
