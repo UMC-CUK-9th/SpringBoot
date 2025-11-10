@@ -1,16 +1,16 @@
-package com.example.demo.domain.reviews.Services;
+package com.example.demo.domain.reviews.Services.Command;
 
 import com.example.demo.domain.reviews.entity.Reviews;
 import com.example.demo.domain.reviews.repository.ReviewsRepository;
 import com.example.demo.domain.stores.entity.Stores;
 import com.example.demo.domain.users.entity.Users;
-import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @RequiredArgsConstructor
-public class ReviewService {
+public class ReviewCommandService {
     private final ReviewsRepository reviewsRepository;
 
     @Transactional
