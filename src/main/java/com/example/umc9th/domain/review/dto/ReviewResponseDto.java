@@ -8,8 +8,13 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 public class ReviewResponseDto {
-    private Long id;
     private String restaurantName;
-    private int grade;
+    private Integer grade;
     private String content;
+
+    public ReviewResponseDto(String restaurantName, Integer grade, String content) {
+        this.restaurantName = restaurantName;
+        this.grade = grade;
+        this.content = content;
+    }
 }

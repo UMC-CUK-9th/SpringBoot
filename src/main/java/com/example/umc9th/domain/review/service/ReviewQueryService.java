@@ -1,8 +1,9 @@
 package com.example.umc9th.domain.review.service;
 
-import com.example.umc9th.domain.review.entity.Review;
+import com.example.umc9th.domain.review.dto.ReviewResponseDto;
 import com.example.umc9th.domain.review.repository.ReviewRepository;
 import com.querydsl.core.BooleanBuilder;
+import com.querydsl.core.types.Predicate;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -14,12 +15,13 @@ import com.example.umc9th.domain.review.entity.QReview;
 @RequiredArgsConstructor
 public class ReviewQueryService {
 
+    // 6주차 미션 - 내가 작성한 리뷰 보기 API, QueryDSL로 구현하기
     private final ReviewRepository reviewRepository;
 
     // Q클래스 정의
     private static final QReview review = QReview.review;
 
-    public List<Review> searchReview(String type, String query) {
+    public List<ReviewResponseDto> searchReview(String type, String query) {
 
         // BooleanBuilder 정의
         BooleanBuilder builder = new BooleanBuilder();
@@ -65,7 +67,7 @@ public class ReviewQueryService {
 
     // 지역명&별점 필터
     private void applyBoth(BooleanBuilder builder, String query) {
-        if (!isNotBlank(query)) return;
+        if (query == null || query.isBlank()) return;
         String[] parts = query.split("&", 2);
 
         applyRegion(builder, parts.length > 0 ? parts[0] : null);
@@ -81,7 +83,7 @@ public class ReviewQueryService {
 
     // 별점대 필터
     private void applyGradeBand(BooleanBuilder builder, String bandStr) {
-        if (!isNotBlank(bandStr)) return;
+        if (bandStr == null || bandStr.isBlank()) return;
 
         try {
             int band = Integer.parseInt(bandStr);
