@@ -1,4 +1,4 @@
-package com.example.umc9th.domain.review.dto;
+package main.java.com.example.umc9th.domain.review.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

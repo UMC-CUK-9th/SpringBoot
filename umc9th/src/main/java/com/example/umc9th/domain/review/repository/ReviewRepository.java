@@ -1,8 +1,8 @@
-package com.example.umc9th.domain.review.repository;
+package main.java.com.example.umc9th.domain.review.repository;
 
-import com.example.umc9th.domain.mission.dto.MissionDto;
-import com.example.umc9th.domain.review.entity.Review;
-import com.example.umc9th.domain.mission.entity.Mission;
+import main.java.com.example.umc9th.domain.mission.dto.MissionDto;
+import main.java.com.example.umc9th.domain.review.entity.Review;
+import main.java.com.example.umc9th.domain.mission.entity.Mission;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;

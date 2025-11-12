@@ -1,12 +1,12 @@
-package com.example.umc9th.domain.review.repository;
+package main.java.com.example.umc9th.domain.review.repository;
 
-import com.example.umc9th.domain.review.entity.QReview;
-import com.example.umc9th.domain.review.entity.Review;
-import com.querydsl.core.BooleanBuilder;
-import com.querydsl.jpa.impl.JPAQueryFactory;
+import main.java.com.example.umc9th.domain.review.entity.QReview;
+import main.java.com.example.umc9th.domain.review.entity.Review;
+import main.java.com.querydsl.core.BooleanBuilder;
+import main.java.com.querydsl.jpa.impl.JPAQueryFactory;
 import jakarta.persistence.EntityManager;
 import lombok.RequiredArgsConstructor;
-import com.querydsl.core.types.Predicate;
+import main.java.com.querydsl.core.types.Predicate;
 import org.springframework.data.domain.Example;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -21,7 +21,7 @@ import java.util.function.Function;
 
 @Repository
 @RequiredArgsConstructor
-public class ReviewQueryDSLImpl implements ReviewRepository {
+public class ReviewQueryDSLImpl {
     private final JPAQueryFactory queryFactory;
     private final EntityManager em;
 
@@ -38,21 +38,6 @@ public class ReviewQueryDSLImpl implements ReviewRepository {
     @Override
     public List<Map<String, Object>> searchReviewByLocation(String name, Float star) {
         return List.of();
-    }
-
-    @Override
-    public List<Review> searchReview(Long userId, String storeName, String locationName, Integer star) {
-        JPAQueryFactory queryFactory = new JPAQueryFactory(em);
-        BooleanBuilder predicate = new BooleanBuilder();
-
-        QReview review = QReview.review;
-
-        return queryFactory
-                .selectFrom(review)
-                .leftJoin(review.store).fetchJoin()
-                .leftJoin(review.user).fetchJoin()
-                .where(predicate)
-                .fetch();
     }
 
     @Override

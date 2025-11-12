@@ -1,7 +1,7 @@
-package com.example.umc9th.domain.review.entity;
+package main.java.com.example.umc9th.domain.review.entity;
 
-import com.example.umc9th.domain.user.entity.User;
-import com.example.umc9th.domain.store.entity.Store;
+import main.java.com.example.umc9th.domain.user.entity.User;
+import main.java.com.example.umc9th.domain.store.entity.Store;
 import jakarta.persistence.*;
 import lombok.*;
 

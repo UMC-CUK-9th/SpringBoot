@@ -1,7 +1,7 @@
-package com.example.umc9th.domain.review.controller;
+package main.java.com.example.umc9th.domain.review.controller;
 
-import com.example.umc9th.domain.review.entity.Review;
-import com.example.umc9th.domain.review.service.ReviewService;
+import main.java.com.example.umc9th.domain.review.entity.Review;
+import main.java.com.example.umc9th.domain.review.service.ReviewService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;

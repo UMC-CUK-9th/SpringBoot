@@ -1,4 +1,4 @@
-package com.example.umc9th.domain.review.enums;
+package main.java.com.example.umc9th.domain.review.enums;
 
 public enum TermName {
 }
