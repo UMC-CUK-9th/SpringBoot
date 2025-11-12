@@ -1,4 +1,4 @@
-package com.example.umc9th.global.entity;
+package main.java.com.example.umc9th.global.entity;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.EntityListeners;
