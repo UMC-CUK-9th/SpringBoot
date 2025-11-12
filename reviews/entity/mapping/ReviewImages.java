@@ -17,8 +17,8 @@ public class ReviewImages {
     @Column(name = "review_image_id", nullable = false)
     private Long reviewImageId;
 
-    @Column(name = "review_url", nullable = false)
-    private String reviewUrl;
+    @Column(name = "image_url", nullable = false)
+    private String imageUrl;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "review_id", nullable = false)

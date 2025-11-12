@@ -1,33 +1,37 @@
 package com.example.demo.domain.reviews.converter;
 
-import com.example.demo.domain.reviews.dto.ReviewRequestDto;
-import com.example.demo.domain.reviews.dto.ReviewsResponseDto;
+import com.example.demo.domain.reviews.dto.ReviewResDto;
 import com.example.demo.domain.reviews.entity.Reviews;
-import com.example.demo.domain.stores.entity.Stores;
-import com.example.demo.domain.users.entity.Users;
+import com.example.demo.domain.reviews.entity.mapping.ReviewImages;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 public class ReviewConverter {
-    public static Reviews toReview(
-            ReviewRequestDto request,
-            Users user,
-            Stores store
-    ) {
-        return Reviews.builder()
-                .users(user)
-                .stores(store)
-                .content(request.getContent())
-                .rating(request.getRating())
+
+    public static ReviewResDto.ReviewInfo toReviewInfoDTO(Reviews review) {
+        List<String> imageUrls = review.getReviewsImages()
+                .stream()
+                .map(ReviewImages::getImageUrl)
+                .collect(Collectors.toList());
+
+        return ReviewResDto.ReviewInfo.builder()
+                .id(review.getReviewId())
+                .storeName(review.getStores().getName())
+                .rating(review.getRating())
+                .content(review.getContent())
+                .imageUrls(imageUrls)
                 .build();
     }
 
-    public static ReviewsResponseDto toReviewResponseDto(
-            Reviews review
-    ){
-        return ReviewsResponseDto.builder()
-                .id(review.getReviewId())
-                .content(review.getContent())
-                .rating(review.getRating())
-                .storeName(review.getStores().getName())
+    // 리뷰 리스트 변환
+    public static ReviewResDto.ReviewList toReviewListDTO(List<Reviews> reviews) {
+        List<ReviewResDto.ReviewInfo> reviewInfos = reviews.stream()
+                .map(ReviewConverter::toReviewInfoDTO)
+                .collect(Collectors.toList());
+
+        return ReviewResDto.ReviewList.builder()
+                .reviews(reviewInfos)
                 .build();
     }
 }

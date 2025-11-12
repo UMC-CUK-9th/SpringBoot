@@ -12,7 +12,7 @@ public enum ReviewErrorCode implements BaseErrorCode {
     private final String code;
     private final String message;
 
-    private ReviewErrorCode(HttpStatus status, String code, String message) {
+    ReviewErrorCode(HttpStatus status, String code, String message) {
         this.status = status;
         this.code = code;
         this.message = message;
