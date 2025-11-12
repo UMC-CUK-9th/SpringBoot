@@ -1,25 +1,22 @@
 package main.java.com.example.umc9th.global.handler;
 
-import com.example.umc9th.global.apiPayload.ApiResponse;
-import com.example.umc9th.global.apiPayload.exception.code.BaseErrorCode;
-import com.example.umc9th.global.apiPayload.code.GeneralErrorCode;
-import com.example.umc9th.global.apiPayload.exception.GeneralException;
+import main.java.com.example.umc9th.global.apiPayload.ApiResponse;
+import main.java.com.example.umc9th.global.apiPayload.exception.code.BaseErrorCode;
+import main.java.com.example.umc9th.global.apiPayload.exception.code.GeneralErrorCode;
+import main.java.com.example.umc9th.global.apiPayload.exception.GeneralException;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 @RestControllerAdvice
 public class GeneralExceptionAdvice {
-
     // 애플리케이션에서 발생하는 커스텀 예외를 처리
     @ExceptionHandler(GeneralException.class)
     public ResponseEntity<ApiResponse<Void>> handleException(
             GeneralException ex
     ) {
-
         return ResponseEntity.status(ex.getCode().getStatus())
-                .body(ApiResponse.onFailure(
-                                ex.getCode(),
+                .body(ApiResponse.onFailure(ex.getCode(),
                                 null
                         )
                 );
@@ -30,7 +27,6 @@ public class GeneralExceptionAdvice {
     public ResponseEntity<ApiResponse<String>> handleException(
             Exception ex
     ) {
-
         BaseErrorCode code = GeneralErrorCode.INTERNAL_SERVER_ERROR;
         return ResponseEntity.status(code.getStatus())
                 .body(ApiResponse.onFailure(

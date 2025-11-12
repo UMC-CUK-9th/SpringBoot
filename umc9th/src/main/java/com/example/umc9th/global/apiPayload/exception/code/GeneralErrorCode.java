@@ -1,4 +1,4 @@
-package com.example.umc9th.global.apiPayload.code;
+package main.java.com.example.umc9th.global.apiPayload.exception.code;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -25,9 +25,7 @@ public enum GeneralErrorCode implements BaseErrorCode{
     NICKNAME_NOT_EXIST(HttpStatus.BAD_REQUEST, "MEMBER4002", "닉네임은 필수 입니다."),
 
     // Article Error
-    ARTICLE_NOT_FOUND(HttpStatus.NOT_FOUND, "ARTICLE4001", "게시글이 없습니다.");
-    ;
-
+    ARTICLE_NOT_FOUND(HttpStatus.NOT_FOUND, "ARTICLE4001", "게시글이 없습니다."), INTERNAL_SERVER_ERROR(HttpStatus.INTERNAL_SERVER_ERROR, "ARTICLE5000", "서버 내부 오류가 발생했습니다.");
     private final HttpStatus status;
     private final String code;
     private final String message;

@@ -1,4 +1,4 @@
-package com.example.umc9th.global.apiPayload.code;
+package main.java.com.example.umc9th.global.apiPayload.exception.code;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -6,21 +6,15 @@ import org.springframework.http.HttpStatus;
 
 @Getter
 @AllArgsConstructor
-public enum GeneralErrorCode implements BaseErrorCode{
+public enum GeneralSuccessCode implements BaseSuccessCode{
 
-    BAD_REQUEST(HttpStatus.BAD_REQUEST,
-            "COMMON400_1",
-            "잘못된 요청입니다."),
-    UNAUTHORIZED(HttpStatus.UNAUTHORIZED,
-            "AUTH401_1",
-            "인증이 필요합니다."),
-    FORBIDDEN(HttpStatus.FORBIDDEN,
-            "AUTH403_1",
-            "요청이 거부되었습니다."),
-    NOT_FOUND(HttpStatus.NOT_FOUND,
-            "COMMON404_1",
-            "요청한 리소스를 찾을 수 없습니다."),
-    ;
+    OK(HttpStatus.OK, "S000", "요청이 성공적으로 처리되었습니다."),
+
+    // ✅ 도메인별 성공 코드
+    USER_CREATED(HttpStatus.CREATED, "U001", "사용자가 성공적으로 생성되었습니다."),
+    USER_UPDATED(HttpStatus.OK, "U002", "사용자 정보가 성공적으로 수정되었습니다."),
+    REVIEW_ADDED(HttpStatus.CREATED, "R001", "리뷰가 성공적으로 등록되었습니다."),
+    STORE_FETCHED(HttpStatus.OK, "S001", "가게 정보 조회에 성공했습니다.");
 
     private final HttpStatus status;
     private final String code;
