@@ -1,5 +1,6 @@
 package com.example.umc9th.domain.usermission.dto;
 
+import com.example.umc9th.domain.mission.entity.MissionStatus;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
@@ -9,5 +10,5 @@ public class UserMissionResponse {
     private String storeName;
     private String missionContent;
     private int missionPoint;
-    private String missionStatus;
+    private MissionStatus missionStatus;
 }
