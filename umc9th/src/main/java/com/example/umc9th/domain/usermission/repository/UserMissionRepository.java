@@ -17,5 +17,5 @@ public interface UserMissionRepository extends JpaRepository<UserMission, Long> 
         WHERE um.user.id = :userId
           AND um.userMissionStatus = 'COMPLETE'
         """)
-    List<Object[]> findCompletedMissionsByUserId(@Param("userId") Long userId);
+    List<Object[]> findUserMissionsByUserId(@Param("userId") Long userId);
 }
