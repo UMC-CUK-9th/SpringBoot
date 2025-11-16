@@ -1,7 +1,9 @@
 package com.example.umc9th.domain.review.controller;
 
-import com.example.umc9th.domain.review.entity.Review;
+import com.example.umc9th.domain.review.dto.ReviewResponseDto;
 import com.example.umc9th.domain.review.service.ReviewQueryService;
+import com.example.umc9th.global.apiPayload.ApiResponse;
+import com.example.umc9th.global.apiPayload.code.GeneralSuccessCode;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
@@ -14,11 +16,15 @@ public class ReviewQueryController {
 
     private final ReviewQueryService reviewQueryService;
 
+    // 6주차 과제 - 내가 작성한 리뷰 보기 API, QueryDSL로 구현하기
     @GetMapping("/search")
-    public List<Review> searchReview(
-            @RequestParam String type,
-            @RequestParam String query
+    public ApiResponse<List<ReviewResponseDto>> searchReviews(
+            @RequestParam(required = false) String type,
+            @RequestParam(required = false) String query
     ) {
-        return reviewQueryService.searchReview(type, query);
+        // 검색 조건에 따른 리뷰 목록 조회
+        List<ReviewResponseDto> results = reviewQueryService.searchReview(type, query);
+        // 7주차 미션 - API 응답통일 처리하기
+        return ApiResponse.onSuccess(GeneralSuccessCode.OK, results);
     }
 }
