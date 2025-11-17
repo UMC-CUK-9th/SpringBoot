@@ -20,7 +20,7 @@ public interface MemberMissionRepository extends JpaRepository<MemberMission, Lo
         JOIN FETCH ms.mission m
         JOIN FETCH m.restaurant r
         WHERE ms.member.id = :memberId
-          AND ms.status = :status
+          AND ms.missionStatus = :status
           AND (:cursorTime IS NULL OR m.updatedAt < :cursorTime)
         ORDER BY m.updatedAt DESC
     """)
@@ -37,7 +37,7 @@ public interface MemberMissionRepository extends JpaRepository<MemberMission, Lo
         JOIN FETCH ms.mission m
         JOIN FETCH m.restaurant r
         WHERE ms.member.id = :memberId
-          AND ms.status = :status
+          AND ms.missionStatus = :status
           AND (:cursorTime IS NULL OR m.updatedAt < :cursorTime)
         ORDER BY m.updatedAt DESC
     """)
@@ -53,7 +53,7 @@ public interface MemberMissionRepository extends JpaRepository<MemberMission, Lo
         FROM MemberMission mm
         WHERE mm.member.id = :memberId
           AND mm.mission.restaurant.region = :region
-          AND mm.status = :status
+          AND mm.missionStatus = :status
     """)
     Long countCompletedMissionsInRegion(
             @Param("memberId") Long memberId,

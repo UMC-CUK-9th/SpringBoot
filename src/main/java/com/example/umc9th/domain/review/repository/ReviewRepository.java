@@ -9,7 +9,6 @@ import java.util.List;
 
 public interface ReviewRepository extends JpaRepository<Review,Long>, ReviewQueryDsl {
 
-    /*
     // 5주차 실습 - JPQL를 사용한 리뷰 검색 기능(지역 및 별점 조회)
     // 지역만 조회
     @Query(
@@ -41,5 +40,4 @@ public interface ReviewRepository extends JpaRepository<Review,Long>, ReviewQuer
                     "AND r1.star > :star", nativeQuery = true
     )
     List<Review> searchReviewsByLocationAndStar(@Param("name") String name, @Param("star") Float star);
-    */
 }
