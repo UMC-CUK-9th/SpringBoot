@@ -7,6 +7,8 @@ import org.springframework.http.HttpStatus;
 @Getter
 public enum ReviewErrorCode implements BaseErrorCode {
     REVIEW_EXCEPTION(HttpStatus.BAD_REQUEST, "REVIEW404_1", "리뷰가 존재하지 않습니다."),
+    MEMBER_EXCEPTION(HttpStatus.BAD_REQUEST, "MEMBER404", "사용자가 존재하지 않습니다."),
+    STORE_EXCEPTION(HttpStatus.BAD_REQUEST, "STORE404_2", "가게가 존재하지 않습니다."),
     ;
     private final HttpStatus status;
     private final String code;
