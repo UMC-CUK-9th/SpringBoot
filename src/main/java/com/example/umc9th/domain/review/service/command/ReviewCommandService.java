@@ -1,0 +1,10 @@
+package com.example.umc9th.domain.review.service.command;
+
+import com.example.umc9th.domain.review.dto.req.ReviewReqDTO;
+import com.example.umc9th.domain.review.dto.res.ReviewResDTO;
+
+public interface ReviewCommandService {
+    ReviewResDTO.CreateReviewResultDTO createReview(ReviewReqDTO.CreateReviewDTO req);
+    void updateReview(Long reviewId, ReviewReqDTO.UpdateReviewDTO req);
+    void deleteReview(Long reviewId);
+}
