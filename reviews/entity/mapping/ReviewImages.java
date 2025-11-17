@@ -9,18 +9,18 @@ import lombok.*;
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
-@Table(name = "review_images")
+@Table(name = "reviewImages")
 
 public class ReviewImages {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "review_image_id", nullable = false)
+    @Column(name = "reviewImageId", nullable = false)
     private Long reviewImageId;
 
-    @Column(name = "image_url", nullable = false)
+    @Column(name = "imageUrl", nullable = false)
     private String imageUrl;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "review_id", nullable = false)
+    @JoinColumn(name = "reviewId", nullable = false)
     private Reviews reviews;
 }

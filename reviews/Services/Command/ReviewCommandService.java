@@ -1,9 +1,8 @@
 package com.example.demo.domain.reviews.Services.Command;
 
-import com.example.demo.domain.reviews.entity.Reviews;
-import com.example.demo.domain.stores.entity.Stores;
-import com.example.demo.domain.users.entity.Users;
+import com.example.demo.domain.reviews.dto.ReviewReqDto;
+import com.example.demo.domain.reviews.dto.ReviewResDto; // 응답 DTO import
 
 public interface ReviewCommandService {
-    Reviews createReview(Users user, Stores store, String content, Float rating);
+    ReviewResDto.ReviewInfo createReview(ReviewReqDto request);
 }
