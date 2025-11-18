@@ -1,9 +1,8 @@
-package com.example.umc9th.domain.review.service;
+package com.example.umc9th.domain.review.service.Query;
 
-import com.example.umc9th.domain.review.dto.ReviewResponseDto;
+import com.example.umc9th.domain.review.dto.Res.ReviewResponseDto;
 import com.example.umc9th.domain.review.repository.ReviewRepository;
 import com.querydsl.core.BooleanBuilder;
-import com.querydsl.core.types.Predicate;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -13,7 +12,7 @@ import com.example.umc9th.domain.review.entity.QReview;
 
 @Service
 @RequiredArgsConstructor
-public class ReviewQueryService {
+public class ReviewQueryServiceImpl implements ReviewQueryService {
 
     // 6주차 미션 - 내가 작성한 리뷰 보기 API, QueryDSL로 구현하기
     private final ReviewRepository reviewRepository;
@@ -49,9 +48,9 @@ public class ReviewQueryService {
     }
 
     // 지역명 필터
-    private void applyRegion(BooleanBuilder builder, String region) {
-        if (isNotBlank(region)) {
-            builder.and(review.restaurant.region.eq(region));
+    private void applyRegion(BooleanBuilder builder, String regionName) {
+        if (isNotBlank(regionName)) {
+            builder.and(review.restaurant.region.regionName.eq(regionName));
         }
     }
 
@@ -77,7 +76,7 @@ public class ReviewQueryService {
     // 가게 이름 필터
     private void applyRestaurant(BooleanBuilder builder, String name) {
         if (isNotBlank(name)) {
-            builder.and(review.restaurant.name.eq(name));
+            builder.and(review.restaurant.restName.eq(name));
         }
     }
 

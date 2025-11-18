@@ -19,11 +19,11 @@ public class Food extends BaseEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "food_name", length = 50, nullable = false)
-    private String name;
+    @Column(name = "foodName", length = 50, nullable = false)
+    private String foodName;
 
     @Enumerated(EnumType.STRING)
-    @Column(name = "food_type", nullable = false)
-    private FoodType type;
+    @Column(name = "foodType", nullable = false)
+    private FoodType foodType;
 }
 

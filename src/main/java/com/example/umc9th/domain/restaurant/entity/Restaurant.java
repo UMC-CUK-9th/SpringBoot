@@ -1,5 +1,6 @@
 package com.example.umc9th.domain.restaurant.entity;
 
+import com.example.umc9th.domain.region.entity.Region;
 import com.example.umc9th.domain.review.entity.Review;
 import com.example.umc9th.domain.mission.entity.Mission;
 import com.example.umc9th.global.entity.BaseEntity;
@@ -21,14 +22,11 @@ public class Restaurant extends BaseEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "name", length = 20, nullable = false)
-    private String name;
+    @Column(name = "restName", length = 20, nullable = false)
+    private String restName;
 
     @Column(name = "address", columnDefinition = "TEXT", nullable = false)
     private String address;
-
-    @Column(name = "region", length = 20, nullable = false)
-    private String region;
 
     @Column(name = "category", length = 20, nullable = false)
     private String category;
@@ -41,5 +39,8 @@ public class Restaurant extends BaseEntity {
 
     @OneToMany(mappedBy = "restaurant")
     private List<Review> reviews = new ArrayList<>();
-}
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "region")
+    private Region region;
+}

@@ -1,6 +1,5 @@
 package com.example.umc9th.domain.mission.entity;
 
-import com.example.umc9th.domain.mission.enums.Status;
 import com.example.umc9th.domain.restaurant.entity.Restaurant;
 import com.example.umc9th.domain.member.entity.mapping.MemberMission;
 import com.example.umc9th.global.entity.BaseEntity;
@@ -38,10 +37,6 @@ public class Mission extends BaseEntity {
 
     @Column(name = "price", nullable = false)
     private Long price;
-
-    @Column(name = "status", nullable = false)
-    @Enumerated(EnumType.STRING)
-    private Status status;
 
     // 4주차 피드백 반영 - CascadeType.REMOVE 삭제
     @OneToMany(mappedBy = "mission")
