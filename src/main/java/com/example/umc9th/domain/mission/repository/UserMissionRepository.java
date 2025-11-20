@@ -17,7 +17,7 @@ public interface UserMissionRepository extends JpaRepository<UserMission, Long> 
         JOIN FETCH um.mission m
         JOIN FETCH m.store s
         WHERE um.user.id = :userId
-          AND ( :status IS NULL OR um.isComplete = :status )
+          AND ( :status IS NULL OR um.status = :status )
         ORDER BY um.createdAt DESC
         """,
             countQuery = """
@@ -25,7 +25,7 @@ public interface UserMissionRepository extends JpaRepository<UserMission, Long> 
         FROM UserMission um
         JOIN um.mission m
         WHERE um.user.id = :userId
-          AND ( :status IS NULL OR um.isComplete = :status )
+          AND ( :status IS NULL OR um.status = :status )
         """
     )
     Page<UserMission> findMyMissionsFetchWithStore(
