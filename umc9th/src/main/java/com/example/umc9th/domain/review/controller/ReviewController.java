@@ -1,11 +1,14 @@
 package com.example.umc9th.domain.review.controller;
 
+import com.example.umc9th.domain.review.dto.ReviewRequest;
 import com.example.umc9th.domain.review.dto.ReviewResponse;
 import com.example.umc9th.domain.review.service.ReviewService;
 import com.example.umc9th.global.apiPayload.ApiResponse;
 import com.example.umc9th.global.apiPayload.code.GeneralSuccessCode;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
+
 import java.util.List;
 
 @RestController
@@ -23,5 +26,19 @@ public class ReviewController {
     ) {
         List<ReviewResponse> result = reviewService.searchMyReviews(userId, type, query);
         return ApiResponse.success(GeneralSuccessCode.SUCCESS, result);
+    }
+
+    @PostMapping("/{storeId}")
+    public ApiResponse<Long> createReview(
+            @PathVariable Long storeId,
+            @RequestParam Long userId,
+            @RequestBody @Valid ReviewRequest request
+    ) {
+        request.setStoreId(storeId);
+
+        ReviewResponse response = reviewService.createReview(userId, request);
+        Long reviewId = response.getId();
+
+        return ApiResponse.success(GeneralSuccessCode.CREATED, reviewId);
     }
 }

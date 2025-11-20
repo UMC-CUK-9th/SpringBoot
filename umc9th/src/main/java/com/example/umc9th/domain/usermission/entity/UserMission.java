@@ -19,7 +19,7 @@ public class UserMission extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    private Long id;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", nullable = false)
@@ -36,9 +36,9 @@ public class UserMission extends BaseEntity {
     @Column(name = "user_mission_started_at", nullable = false)
     private LocalDateTime userMissionStartedAt;
 
-    @Column(name = "user_mission_completed_at", nullable = false)
+    @Column(name = "user_mission_completed_at", nullable = true)
     private LocalDateTime userMissionCompletedAt;
 
-    @Column(name = "certification_number", nullable = false)
+    @Column(name = "certification_number", nullable = true)
     private String certificationNumber;
 }
