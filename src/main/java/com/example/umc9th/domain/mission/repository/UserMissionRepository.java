@@ -17,7 +17,7 @@ public interface UserMissionRepository extends JpaRepository<UserMission, Long> 
         JOIN FETCH um.mission m
         JOIN FETCH m.store s
         WHERE um.user.id = :userId
-          AND ( :status IS NULL OR um.isComplete = :status )
+          AND ( :status IS NULL OR um.status = :status )
         ORDER BY um.createdAt DESC
         """,
             countQuery = """
@@ -25,7 +25,7 @@ public interface UserMissionRepository extends JpaRepository<UserMission, Long> 
         FROM UserMission um
         JOIN um.mission m
         WHERE um.user.id = :userId
-          AND ( :status IS NULL OR um.isComplete = :status )
+          AND ( :status IS NULL OR um.status = :status )
         """
     )
     Page<UserMission> findMyMissionsFetchWithStore(
@@ -33,4 +33,7 @@ public interface UserMissionRepository extends JpaRepository<UserMission, Long> 
             @Param("status") Boolean status,  // null=전체, true=완료, false=진행중 , 컬럼에서 isComplete 값
             Pageable pageable
     );
+
+    // 8주차 과제: 미션 도전하기 API - 특정 유저가 특정 미션에 이미 도전 중인지 확인
+    boolean existsByUserIdAndMissionId(Long userId, Long missionId);
 }

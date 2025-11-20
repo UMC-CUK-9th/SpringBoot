@@ -32,5 +32,6 @@ public class ReviewResDTO {
     public static class CreateReviewResultDTO {
         private Long reviewId;
         private Float star;
+        private String storeName;
     }
 }

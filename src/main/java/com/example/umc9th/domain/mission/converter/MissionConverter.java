@@ -2,6 +2,7 @@ package com.example.umc9th.domain.mission.converter;
 
 import com.example.umc9th.domain.mission.dto.res.MissionResDTO;
 import com.example.umc9th.domain.mission.entity.Mission;
+import com.example.umc9th.domain.mission.entity.UserMission;
 
 public class MissionConverter {
 
@@ -33,6 +34,18 @@ public class MissionConverter {
         return MissionResDTO.CreateMissionResultDTO.builder()
                 .missionId(mission.getId())
                 .point(mission.getPoint())
+                .build();
+    }
+
+    // 8주차 과제: 미션 도전하기 API - UserMission Entity -> 미션 도전 결과 DTO 변환
+    public static MissionResDTO.ChallengeMissionResultDTO toChallengeMissionResultDTO(
+            UserMission userMission) {
+        return MissionResDTO.ChallengeMissionResultDTO.builder()
+                .userMissionId(userMission.getId())
+                .missionId(userMission.getMission().getId())
+                .storeName(userMission.getMission().getStore().getName())
+                .point(userMission.getMission().getPoint())
+                .status(userMission.getStatus().toString())
                 .build();
     }
 }

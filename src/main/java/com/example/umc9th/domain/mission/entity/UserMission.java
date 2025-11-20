@@ -1,10 +1,12 @@
 package com.example.umc9th.domain.mission.entity;
 
 import com.example.umc9th.domain.user.entity.User;
+import com.example.umc9th.domain.mission.enums.MissionStatus;
 import com.example.umc9th.global.entity.BaseEntity;
 import jakarta.persistence.*;
 import lombok.*;
 
+// 8주차 과제: 미션 도전하기 API - User와 Mission 매핑 엔티티
 @Entity
 @Builder
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
@@ -17,8 +19,10 @@ public class UserMission extends BaseEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "is_complete", nullable = false)
-    private boolean isComplete;
+    @Enumerated(EnumType.STRING)
+    @Column(name = "status", nullable = false)
+    @Builder.Default
+    private MissionStatus status = MissionStatus.CHALLENGING;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "tb_user_id")
@@ -27,4 +31,9 @@ public class UserMission extends BaseEntity {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "mission_id")
     private Mission mission;
+
+    // 8주차 과제: 미션 완료 처리 메서드
+    public void completeChallenge() {
+        this.status = MissionStatus.COMPLETED;
+    }
 }

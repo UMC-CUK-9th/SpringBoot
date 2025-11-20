@@ -34,6 +34,7 @@ public class ReviewConverter {
         return ReviewResDTO.CreateReviewResultDTO.builder()
                 .reviewId(review.getId())
                 .star(review.getStar())
+                .storeName(review.getStore().getName())
                 .build();
     }
 }
