@@ -1,5 +1,6 @@
 package com.example.umc9th.domain.mission.dto;
 
+import com.example.umc9th.domain.mission.entity.MissionStatus;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
@@ -14,6 +15,6 @@ public class MissionDto {
     private String category;
     private String missionContent;
     private Integer missionPoint;
-    private String missionStatus;
+    private MissionStatus missionStatus;
     private Long dDay;
 }

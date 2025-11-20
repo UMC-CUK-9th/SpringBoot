@@ -6,7 +6,6 @@ import com.example.umc9th.global.apiPayload.ApiResponse;
 import com.example.umc9th.global.apiPayload.code.GeneralSuccessCode;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
-
 import java.util.List;
 
 @RestController
@@ -22,5 +21,11 @@ public class UserMissionController {
     ) {
         List<UserMissionResponse> result = userMissionService.getUserMissions(userId);
         return ApiResponse.success(GeneralSuccessCode.SUCCESS, result);
+    }
+
+    @PostMapping("/{missionId}/challenge")
+    public ApiResponse<Long> challengeMission(@PathVariable Long missionId) {
+        Long id = userMissionService.challengeMission(missionId);
+        return ApiResponse.success(GeneralSuccessCode.CREATED, id);
     }
 }
