@@ -13,21 +13,4 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 public class UserQueryServiceImpl implements UserQueryService {
 
-    private final UserRepository userRepository;
-
-    @Override
-    public UserResDTO.UserInfoDTO getUserInfo(Long userId) {
-        User user = userRepository.findById(userId)
-                .orElseThrow(() -> new UserException(UserErrorCode.USER_NOT_FOUND));
-
-        return UserConverter.toUserInfoDTO(user);
-    }
-
-    @Override
-    public UserResDTO.UserDetailDTO getUserDetail(Long userId) {
-        User user = userRepository.findById(userId)
-                .orElseThrow(() -> new UserException(UserErrorCode.USER_NOT_FOUND));
-
-        return UserConverter.toUserDetailDTO(user);
-    }
 }

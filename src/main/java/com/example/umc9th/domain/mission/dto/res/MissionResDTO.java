@@ -34,4 +34,15 @@ public class MissionResDTO {
         private Long missionId;
         private Integer point;
     }
+
+    // 8주차 과제: 미션 도전하기 API - 응답 DTO
+    @Builder
+    @Getter
+    public static class ChallengeMissionResultDTO {
+        private Long userMissionId;
+        private Long missionId;
+        private String storeName;
+        private Integer point;
+        private String status;
+    }
 }
