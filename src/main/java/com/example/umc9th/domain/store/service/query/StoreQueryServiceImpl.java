@@ -8,9 +8,11 @@ import com.example.umc9th.domain.store.exception.code.StoreErrorCode;
 import com.example.umc9th.domain.store.repository.StoreRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @RequiredArgsConstructor
+@Transactional(readOnly = true)
 public class StoreQueryServiceImpl implements StoreQueryService {
 
     private final StoreRepository storeRepository;
