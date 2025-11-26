@@ -4,6 +4,7 @@ import lombok.Builder;
 import lombok.Getter;
 
 import java.time.LocalDate;
+import java.util.List;
 
 public class MissionResDTO {
 
@@ -44,5 +45,51 @@ public class MissionResDTO {
         private String storeName;
         private Integer point;
         private String status;
+    }
+
+    // 9주차 미션 - 특정 가게의 미션 목록 응답 DTO
+    @Builder
+    @Getter
+    public static class StoreMissionListDTO {
+        private List<StoreMissionDTO> missionList;
+        private Integer listSize;
+        private Integer totalPage;
+        private Long totalElements;
+        private Boolean isFirst;
+        private Boolean isLast;
+    }
+
+    // 9주차 미션 - 특정 가게의 미션 단건 DTO
+    @Builder
+    @Getter
+    public static class StoreMissionDTO {
+        private Long missionId;
+        private Integer point;
+        private String missionSpec;
+        private LocalDate deadline;
+    }
+
+    // 9주차 미션 - 내가 진행중인 미션 목록 응답 DTO
+    @Builder
+    @Getter
+    public static class MyChallengingMissionListDTO {
+        private List<MyChallengingMissionDTO> missionList;
+        private Integer listSize;
+        private Integer totalPage;
+        private Long totalElements;
+        private Boolean isFirst;
+        private Boolean isLast;
+    }
+
+    // 9주차 미션 - 내가 진행중인 미션 단건 DTO
+    @Builder
+    @Getter
+    public static class MyChallengingMissionDTO {
+        private Long userMissionId;
+        private Long missionId;
+        private String storeName;
+        private Integer point;
+        private String missionSpec;
+        private LocalDate deadline;
     }
 }

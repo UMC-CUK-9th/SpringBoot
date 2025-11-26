@@ -4,6 +4,7 @@ import com.example.umc9th.global.apiPayload.ApiResponse;
 import com.example.umc9th.global.apiPayload.code.BaseErrorCode;
 import com.example.umc9th.global.apiPayload.code.GeneralErrorCode;
 import com.example.umc9th.global.apiPayload.exception.GeneralException;
+import jakarta.validation.ConstraintViolationException;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -58,6 +59,27 @@ public class GeneralExceptionAdvice {
         ApiResponse<Map<String, String>> errorResponse = ApiResponse.onFailure(code, errors);
 
         // 에러 코드, 메시지와 함께 errors를 반환
+        return ResponseEntity.status(code.getStatus()).body(errorResponse);
+    }
+
+    // 9주차 미션 - @CheckPage 등 커스텀 어노테이션 검증 실패 시 처리 (ConstraintViolationException)
+    @ExceptionHandler(ConstraintViolationException.class)
+    protected ResponseEntity<ApiResponse<Map<String, String>>> handleConstraintViolationException(
+            ConstraintViolationException ex
+    ) {
+        Map<String, String> errors = new HashMap<>();
+        ex.getConstraintViolations().forEach(violation -> {
+            String fieldName = violation.getPropertyPath().toString();
+            // "getMyReviews.page" -> "page" 로 추출
+            if (fieldName.contains(".")) {
+                fieldName = fieldName.substring(fieldName.lastIndexOf(".") + 1);
+            }
+            errors.put(fieldName, violation.getMessage());
+        });
+
+        GeneralErrorCode code = GeneralErrorCode.INVALID_PAGE;
+        ApiResponse<Map<String, String>> errorResponse = ApiResponse.onFailure(code, errors);
+
         return ResponseEntity.status(code.getStatus()).body(errorResponse);
     }
 }
