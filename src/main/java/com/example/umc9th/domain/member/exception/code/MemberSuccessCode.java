@@ -5,7 +5,6 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import org.springframework.http.HttpStatus;
 
-// 8주차 예제 - 회원가입 API
 @Getter
 @AllArgsConstructor
 public enum MemberSuccessCode implements BaseSuccessCode {

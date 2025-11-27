@@ -3,9 +3,11 @@ package com.example.umc9th.domain.member.service.command;
 import com.example.umc9th.domain.member.entity.Member;
 import com.example.umc9th.domain.member.entity.mapping.MemberMission;
 import com.example.umc9th.domain.member.exception.code.MemberErrorCode;
+import com.example.umc9th.domain.member.exception.code.MemberMissionErrorCode;
 import com.example.umc9th.domain.member.repository.MemberMissionRepository;
 import com.example.umc9th.domain.member.repository.MemberRepository;
 import com.example.umc9th.domain.member.converter.MemberMissionConverter;
+import com.example.umc9th.domain.member.dto.res.MemberMissionResDTO;
 import com.example.umc9th.domain.mission.dto.res.MissionResDTO;
 import com.example.umc9th.domain.mission.entity.Mission;
 import com.example.umc9th.domain.mission.exception.code.MissionErrorCode;
@@ -15,7 +17,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-// 8주차 미션 - 가게의 미션을 도전 중인 미션에 추가(미션 도전하기) API
 @Service
 @RequiredArgsConstructor
 public class MemberMissionCommandServiceImpl implements MemberMissionCommandService {
@@ -24,6 +25,7 @@ public class MemberMissionCommandServiceImpl implements MemberMissionCommandServ
     private final MissionRepository missionRepository;
     private final MemberMissionRepository memberMissionRepository;
 
+    // 8주차 미션 - 가게의 미션을 도전 중인 미션에 추가하기(미션 도전하기) API
     @Override
     @Transactional
     public MissionResDTO.CreateDTO challengeMission(Long memberId, Long missionId, Long restId) {
@@ -49,5 +51,17 @@ public class MemberMissionCommandServiceImpl implements MemberMissionCommandServ
 
         // 5) 응답 DTO 반환
         return MemberMissionConverter.toCreateDTO(saved);
+    }
+
+    // 9주차 미션 - 4. 진행중인 미션 진행 완료로 바꾸기 API
+    @Override
+    @Transactional
+    public MemberMissionResDTO.CompletedMissionDTO completeMission(Long memberId, Long memberMissionId) {
+        MemberMission memberMission = memberMissionRepository.findByIdAndMemberId(memberMissionId, memberId)
+                .orElseThrow(() -> new GeneralException(MemberMissionErrorCode.MEMBER_MISSION_NOT_FOUND));
+
+        memberMission.updateStatus(com.example.umc9th.domain.member.enums.MissionStatus.COMPLETED);
+
+        return MemberMissionConverter.toCompletedMissionDTO(memberMission);
     }
 }

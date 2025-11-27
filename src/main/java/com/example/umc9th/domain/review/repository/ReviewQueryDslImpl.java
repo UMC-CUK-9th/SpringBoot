@@ -1,5 +1,6 @@
 package com.example.umc9th.domain.review.repository;
 
+/*
 import com.example.umc9th.domain.review.dto.Res.ReviewResponseDto;
 import com.example.umc9th.domain.review.entity.QReview;
 import com.example.umc9th.domain.restaurant.entity.QRestaurant;
@@ -40,3 +41,4 @@ public class ReviewQueryDslImpl implements ReviewQueryDsl {
                 .fetch();
     }
 }
+ */

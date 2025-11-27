@@ -1,5 +1,6 @@
 package com.example.umc9th.domain.review.repository;
 
+/*
 import com.example.umc9th.domain.review.dto.Res.ReviewResponseDto;
 import com.querydsl.core.types.Predicate;
 
@@ -12,3 +13,4 @@ public interface ReviewQueryDsl {
         Predicate predicate
     );
 }
+ */

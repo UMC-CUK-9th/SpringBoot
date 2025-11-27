@@ -1,5 +1,6 @@
 package com.example.umc9th.domain.review.controller;
 
+/*
 import com.example.umc9th.domain.review.dto.Res.ReviewResponseDto;
 import com.example.umc9th.domain.review.service.Query.ReviewQueryServiceImpl;
 import com.example.umc9th.global.apiPayload.ApiResponse;
@@ -28,3 +29,4 @@ public class ReviewQueryController {
         return ApiResponse.onSuccess(GeneralSuccessCode.OK, results);
     }
 }
+ */

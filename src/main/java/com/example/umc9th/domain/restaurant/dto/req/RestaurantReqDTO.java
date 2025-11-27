@@ -5,9 +5,9 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 import lombok.*;
 
-// 8주차 미션 - 1. 특정 지역에 가게 추가하기 API
 public class RestaurantReqDTO {
 
+    // 8주차 미션 - 1. 특정 지역에 가게 추가하기 API
     @Getter
     @Setter
     public static class CreateRestDTO {

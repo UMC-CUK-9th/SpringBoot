@@ -16,24 +16,24 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-// 8주차 미션 - 2. 가게에 리뷰 추가하기 API
 @Service
 @RequiredArgsConstructor
+@Transactional(readOnly = true)
 public class ReviewCommandServiceImpl implements ReviewCommandService {
 
     private final ReviewRepository reviewRepository;
     private final RestaurantRepository restaurantRepository;
     private final MemberRepository memberRepository;
 
+    // 8주차 미션 - 2. 가게에 리뷰 추가하기 API
     @Override
     @Transactional
-    public ReviewResDTO.CreateReviewDTO createReview(Long restId, ReviewReqDTO.CreateReviewDTO dto) {
+    public ReviewResDTO.CreateReviewDTO createReview(Long restId, Long memberId, ReviewReqDTO.CreateReviewDTO dto) {
         // 1) 레스토랑 조회
         Restaurant restaurant = restaurantRepository.findById(restId)
                 .orElseThrow(() -> new GeneralException(RestaurantErrorCode.REST_NOT_FOUND));
 
-        // 2) 로그인 미구현 → 테스트용 하드코딩 멤버
-        Long memberId = 1L;
+        // 2) 로그인 미구현 → 테스트용 멤버 ID 파라미터로 전달
         Member member = memberRepository.findById(memberId)
                 .orElseThrow(() -> new GeneralException(MemberErrorCode.MEMBER_NOT_FOUND));
 

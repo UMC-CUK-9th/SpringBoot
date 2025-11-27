@@ -5,9 +5,9 @@ import jakarta.validation.constraints.*;
 import lombok.Getter;
 import lombok.Setter;
 
-// 8주차 미션 - 2. 가게에 리뷰 추가하기 API
 public class ReviewReqDTO {
 
+    // 8주차 미션 - 2. 가게에 리뷰 추가하기 API
     @Getter
     @Setter
     @Schema(name = "ReviewCreateRequest")

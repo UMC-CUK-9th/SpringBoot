@@ -1,15 +1,76 @@
 package com.example.umc9th.domain.review.service.Query;
 
-import com.example.umc9th.domain.review.dto.Res.ReviewResponseDto;
+import com.example.umc9th.domain.member.entity.Member;
+import com.example.umc9th.domain.member.exception.MemberException;
+import com.example.umc9th.domain.member.exception.code.MemberErrorCode;
+import com.example.umc9th.domain.member.repository.MemberRepository;
+import com.example.umc9th.domain.restaurant.entity.Restaurant;
+import com.example.umc9th.domain.restaurant.exception.RestaurantException;
+import com.example.umc9th.domain.restaurant.exception.code.RestaurantErrorCode;
+import com.example.umc9th.domain.restaurant.repository.RestaurantRepository;
+import com.example.umc9th.domain.review.converter.ReviewConverter;
+import com.example.umc9th.domain.review.dto.Res.ReviewResDTO;
+// import com.example.umc9th.domain.review.dto.Res.ReviewResponseDto;
+import com.example.umc9th.domain.review.entity.Review;
 import com.example.umc9th.domain.review.repository.ReviewRepository;
 import com.querydsl.core.BooleanBuilder;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 import com.example.umc9th.domain.review.entity.QReview;
+import org.springframework.transaction.annotation.Transactional;
 
+@Service
+@RequiredArgsConstructor
+@Transactional(readOnly = true)
+public class ReviewQueryServiceImpl implements ReviewQueryService {
+
+    private final RestaurantRepository restaurantRepository;
+    private final ReviewRepository reviewRepository;
+    private final MemberRepository memberRepository;
+
+    // 9주차 실습 - 가게의 리뷰 목록 조회하기 API
+    @Override
+    public ReviewResDTO.ReviewPreViewListDTO getRestReviews(Long restId, Integer page) {
+
+        // 1. 가게 존재 여부 검증 (ID 기준)
+        Restaurant restaurant = restaurantRepository.findById(restId)
+                .orElseThrow(() -> new RestaurantException(RestaurantErrorCode.REST_NOT_FOUND));
+
+        // 2. 페이징 정보 설정 (한 페이지 10개, 프론트는 1부터 넘기므로 -1)
+        PageRequest pageRequest = PageRequest.of(page - 1, 10);
+
+        // 3. 해당 가게의 리뷰 목록 조회
+        Page<Review> result = reviewRepository.findAllByRestaurant(restaurant, pageRequest);
+
+        // 4. 엔티티 → DTO 변환
+        return ReviewConverter.toReviewPreviewListDTO(result);
+    }
+
+    // 9주차 미션 - 1. 내가 작성한 리뷰 목록 조회하기 API
+    @Override
+    public ReviewResDTO.ReviewPreViewListDTO getMyReviews(Long memberId, Integer page) {
+
+        // 1. 회원 존재 여부 검증 (ID 기준)
+        Member member = memberRepository.findById(memberId)
+                .orElseThrow(() -> new MemberException(MemberErrorCode.MEMBER_NOT_FOUND));
+
+        // 2. 페이징 정보 설정 (한 페이지 10개, 프론트는 1부터 넘기므로 -1)
+        PageRequest pageRequest = PageRequest.of(page - 1, 10);
+
+        // 3. 해당 회원이 작성한 리뷰 목록 조회
+        Page<Review> result = reviewRepository.findAllByMember(member, pageRequest);
+
+        // 4. 엔티티 -> DTO 변환
+        return ReviewConverter.toReviewPreviewListDTO(result);
+    }
+}
+
+/*
 @Service
 @RequiredArgsConstructor
 public class ReviewQueryServiceImpl implements ReviewQueryService {
@@ -98,3 +159,4 @@ public class ReviewQueryServiceImpl implements ReviewQueryService {
         return s != null && !s.isBlank();
     }
 }
+ */

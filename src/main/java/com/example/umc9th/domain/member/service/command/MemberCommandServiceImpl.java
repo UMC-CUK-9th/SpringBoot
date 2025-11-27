@@ -19,7 +19,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-// 8주차 예제 - 회원가입 API
 @Service
 @RequiredArgsConstructor
 public class MemberCommandServiceImpl implements MemberCommandService{
@@ -28,6 +27,7 @@ public class MemberCommandServiceImpl implements MemberCommandService{
     private final MemberFoodRepository memberFoodRepository;
     private final FoodRepository foodRepository;
 
+    // 8주차 예제 - 회원가입 API
     @Override
     @Transactional
     public MemberResDTO.JoinDTO signup(
@@ -77,7 +77,8 @@ public class MemberCommandServiceImpl implements MemberCommandService{
         */
 
         // DB 적용
-        memberRepository.save(member);
+        // 8주차 피드백 반영 - save 삭제
+        // memberRepository.save(member);
 
         // 응답 DTO 생성
         return MemberConverter.toJoinDTO(member);

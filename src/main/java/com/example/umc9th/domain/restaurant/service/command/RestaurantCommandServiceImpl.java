@@ -14,7 +14,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-// 8주차 미션 - 1. 특정 지역에 가게 추가하기 API
 @Service
 @RequiredArgsConstructor
 public class RestaurantCommandServiceImpl implements RestaurantCommandService {
@@ -22,6 +21,7 @@ public class RestaurantCommandServiceImpl implements RestaurantCommandService {
     private final RestaurantRepository restaurantRepository;
     private final RegionRepository regionRepository;
 
+    // 8주차 미션 - 1. 특정 지역에 가게 추가하기 API
     @Override
     @Transactional
     public RestaurantResDTO.CreateRestDTO createInRegion(Long regionId, RestaurantReqDTO.CreateRestDTO dto) {

@@ -6,9 +6,9 @@ import lombok.Getter;
 
 import java.time.LocalDateTime;
 
-// 8주차 미션 - 1. 특정 지역에 가게 추가하기 API
 public class RestaurantResDTO {
 
+    // 8주차 미션 - 1. 특정 지역에 가게 추가하기 API
     @Getter
     @Builder
     @Schema(name = "RestaurantCreateResponse")

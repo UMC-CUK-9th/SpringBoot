@@ -35,4 +35,8 @@ public class MemberMission extends BaseEntity {
     @Column(name = "status", nullable = false)
     @Enumerated(EnumType.STRING)
     private MissionStatus missionStatus;
+
+    public void updateStatus(MissionStatus missionStatus) {
+        this.missionStatus = missionStatus;
+    }
 }

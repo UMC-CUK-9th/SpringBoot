@@ -9,9 +9,9 @@ import org.springframework.boot.autoconfigure.amqp.RabbitConnectionDetails;
 import java.time.LocalDate;
 import java.util.List;
 
-// 8주차 예제 - 회원가입 API
 public class MemberReqDTO {
 
+    // 8주차 예제 - 회원가입 API
     public record JoinDTO(
             @NotBlank(message = "이름은 필수입니다.")
             String name,

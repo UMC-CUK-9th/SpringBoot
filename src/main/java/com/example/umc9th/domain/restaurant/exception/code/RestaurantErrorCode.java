@@ -5,7 +5,6 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import org.springframework.http.HttpStatus;
 
-// 8주차 미션 - 1. 특정 지역에 가게 추가하기 API
 @Getter
 @AllArgsConstructor
 public enum RestaurantErrorCode implements BaseErrorCode {

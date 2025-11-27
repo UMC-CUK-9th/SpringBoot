@@ -7,9 +7,9 @@ import lombok.Setter;
 
 import java.time.LocalDateTime;
 
-// 8주차 미션 - 3. 가게에 미션 추가하기 API
 public class MissionReqDTO {
 
+    // 8주차 미션 - 3. 가게에 미션 추가하기 API
     @Getter
     @Setter
     @Schema(name = "MissionCreateRequest")

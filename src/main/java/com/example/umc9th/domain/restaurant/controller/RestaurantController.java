@@ -9,15 +9,18 @@ import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
-// 8주차 미션 - 1. 특정 지역에 가게 추가하기 API
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/regions/{regionId}/restaurants")
-public class RestaurantController {
+public class RestaurantController implements RestaurantControllerDocs {
 
     private final RestaurantCommandService restaurantCommandService;
 
-    @PostMapping
+    /**
+     * 8주차 미션 - 1. 특정 지역에 가게 추가하기 API
+     * POST /
+     */
+    @PostMapping("")
     public ApiResponse<RestaurantResDTO.CreateRestDTO> createRestaurant(
             @PathVariable("regionId") Long regionId,
             @RequestBody @Valid RestaurantReqDTO.CreateRestDTO dto

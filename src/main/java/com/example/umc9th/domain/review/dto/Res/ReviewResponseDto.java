@@ -1,5 +1,6 @@
 package com.example.umc9th.domain.review.dto.Res;
 
+/*
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -18,3 +19,4 @@ public class ReviewResponseDto {
         this.content = content;
     }
 }
+ */

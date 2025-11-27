@@ -11,15 +11,17 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-// 8주차 예제 - 회원가입 API
 @RestController
 @RequiredArgsConstructor
-public class MemberController {
+public class MemberController implements MemberControllerDocs {
 
     private final MemberCommandService memberCommandService;
 
-    // 회원가입
-    @PostMapping("/members/sign-up")
+    /**
+     * 8주차 예제 - 회원가입 API
+     * POST /
+     */
+    @PostMapping("/members")
     public ApiResponse<MemberResDTO.JoinDTO> signUp(
             @RequestBody @Valid MemberReqDTO.JoinDTO dto
     ){

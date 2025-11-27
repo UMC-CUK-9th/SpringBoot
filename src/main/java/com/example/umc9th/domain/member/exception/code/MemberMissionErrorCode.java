@@ -7,12 +7,11 @@ import org.springframework.http.HttpStatus;
 
 @Getter
 @AllArgsConstructor
-public enum FoodErrorCode implements BaseErrorCode {
+public enum MemberMissionErrorCode implements BaseErrorCode {
 
-    FOOD_NOT_FOUND(HttpStatus.NOT_FOUND,
-            "FOOD404_1",
-            "해당 음식을 찾지 못했습니다."),
-    ;
+    MEMBER_MISSION_NOT_FOUND(HttpStatus.NOT_FOUND,
+            "MEMBERMISSION404_1",
+            "회원의 미션을 찾을 수 없습니다.");
 
     private final HttpStatus status;
     private final String code;

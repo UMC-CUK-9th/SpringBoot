@@ -13,7 +13,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-// 8주차 미션 - 3. 가게에 미션 추가하기 API
 @Service
 @RequiredArgsConstructor
 public class MissionCommandServiceImpl implements MissionCommandService {
@@ -21,6 +20,7 @@ public class MissionCommandServiceImpl implements MissionCommandService {
     private final MissionRepository missionRepository;
     private final RestaurantRepository restaurantRepository;
 
+    // 8주차 미션 - 3. 가게에 미션 추가하기 API
     @Override
     @Transactional
     public MissionResDTO.CreateDTO createMission(Long restId, MissionReqDTO.CreateDTO dto) {

@@ -1,4 +1,4 @@
-package com.example.umc9th.domain.member.exception.code;
+package com.example.umc9th.domain.review.Exception.code;
 
 import com.example.umc9th.global.apiPayload.code.BaseSuccessCode;
 import lombok.AllArgsConstructor;
@@ -7,11 +7,11 @@ import org.springframework.http.HttpStatus;
 
 @Getter
 @AllArgsConstructor
-public enum FoodSuccessCode implements BaseSuccessCode {
+public enum ReviewSuccessCode implements BaseSuccessCode {
 
-    FOOD_FOUND(HttpStatus.OK,
-            "MEMBER200_1",
-            "성공적으로 음식을 조회했습니다."),
+    REVIEW_FOUND(HttpStatus.OK,
+            "REVIEW200_1",
+            "성공적으로 리뷰를 조회했습니다."),
     ;
 
     private final HttpStatus status;

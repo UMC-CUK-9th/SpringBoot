@@ -4,9 +4,9 @@ import com.example.umc9th.domain.member.dto.req.MemberReqDTO;
 import com.example.umc9th.domain.member.dto.res.MemberResDTO;
 import com.example.umc9th.domain.member.entity.Member;
 
-// 8주차 예제 - 회원가입 API
 public class MemberConverter {
 
+    // 8주차 예제 - 회원가입 API
     // Entity -> DTO
     public static MemberResDTO.JoinDTO toJoinDTO(
             Member member
