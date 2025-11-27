@@ -44,7 +44,7 @@ public class ReviewConverter {
     public static ReviewResDto.ReviewList toReviewListDTO(List<Reviews> reviews) {
         List<ReviewResDto.ReviewInfo> reviewInfos = reviews.stream()
                 .map(ReviewConverter::toReviewInfoDTO)
-                .collect(Collectors.toList());
+                .toList();
 
         return ReviewResDto.ReviewList.builder()
                 .reviews(reviewInfos)

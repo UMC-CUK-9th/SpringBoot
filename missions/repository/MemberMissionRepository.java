@@ -13,22 +13,25 @@ public interface MemberMissionRepository extends JpaRepository<MemberMissions, L
     @Query("SELECT um FROM MemberMissions um " +
             "JOIN FETCH um.missions m " +
             "JOIN FETCH m.stores s " +
-            "WHERE um.members.memberId = :userId ORDER BY m.deadline ASC, um.createdAt DESC")
+            "WHERE um.members.memberId = :memberId ORDER BY m.deadline ASC, um.createdAt DESC")
     Page<MemberMissions> findAllMissionsListByUserId(@Param("memberId") Long memberId, Pageable pageable);
 
     // 진행 중
-    @Query("SELECT um FROM MemberMissions um " +
-            "JOIN FETCH um.missions m " +
-            "JOIN FETCH m.stores s " +
-            "WHERE um.members.memberId = :userId AND um.status = FALSE " +
-            "ORDER BY m.deadline ASC, um.createdAt DESC")
+    @Query(
+            value = "SELECT um FROM MemberMissions um " +
+                    "JOIN FETCH um.missions m " +
+                    "JOIN FETCH m.stores s " +
+                    "WHERE um.members.memberId = :memberId " +
+                    "ORDER BY m.deadline ASC, um.createdAt DESC",
+            countQuery = "SELECT COUNT(um) FROM MemberMissions um WHERE um.members.memberId = :memberId"
+    )
     Page<MemberMissions> findProgressMissionsListByMemberId(@Param("memberId") Long memberId, Pageable pageable);
 
     // 진행 완료
     @Query("SELECT um FROM MemberMissions um " +
             "JOIN FETCH um.missions m " +
             "JOIN FETCH m.stores s " +
-            "WHERE um.members.memberId = :userId AND um.status = TRUE " +
+            "WHERE um.members.memberId = :memberId AND um.status = TRUE " +
             "ORDER BY m.deadline ASC, um.createdAt DESC")
     Page<MemberMissions> findCompleteMissionsListByUserId(@Param("memberId") Long memberId, Pageable pageable);
 }

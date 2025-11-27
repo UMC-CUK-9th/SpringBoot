@@ -1,7 +1,9 @@
 package com.example.demo.domain.reviews.dto;
 
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 import java.util.List;
 
@@ -9,8 +11,9 @@ import java.util.List;
 @Builder
 public class ReviewResDto {
 
-    @Getter
     @Builder
+    @Getter
+    @AllArgsConstructor
     public static class ReviewInfo {
         private Long id;
         private String storeName;
@@ -21,6 +24,7 @@ public class ReviewResDto {
 
     @Getter
     @Builder
+    @AllArgsConstructor
     public static class ReviewList {
         private List<ReviewInfo> reviews;
     }

@@ -12,6 +12,10 @@ import com.example.demo.domain.reviews.repository.ReviewsRepository;
 import com.example.demo.domain.stores.entity.Stores;
 import com.example.demo.domain.stores.repository.StoreRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -23,6 +27,7 @@ public class ReviewCommandServiceImpl implements ReviewCommandService {
     private final MemberRepository memberRepository;
     private final StoreRepository storeRepository;
 
+    // 리뷰 작성
     @Override
     @Transactional
     public ReviewResDto.ReviewInfo createReview(ReviewReqDto request) {
@@ -42,5 +47,33 @@ public class ReviewCommandServiceImpl implements ReviewCommandService {
         Reviews createdReview = reviewsRepository.save(newReview);
 
         return ReviewConverter.toReviewInfoDTO(createdReview);
+    }
+
+    // 내가 작성한 리뷰 조회 (페이징)
+    @Override
+    public ReviewResDto.ReviewList findReviewsByUser(Long memberId, int page, int size) {
+        Pageable pageable = PageRequest.of(
+                page - 1,
+                size,
+                Sort.by(Sort.Direction.DESC, "createdAt")
+        );
+
+        Page<Reviews> found = reviewsRepository.findByMembers_MemberId(memberId, pageable);
+
+        return ReviewConverter.toReviewListDTO(found.getContent());
+    }
+
+    // 특정 가게 리뷰 조회 (페이징)
+    @Override
+    public ReviewResDto.ReviewList findReviewsByStore(Long storeId, int page, int size) {
+        Pageable pageable = PageRequest.of(
+                page - 1,
+                size,
+                Sort.by(Sort.Direction.DESC, "createdAt")
+        );
+
+        Page<Reviews> found = reviewsRepository.findByMembers_MemberId(storeId, pageable);
+
+        return ReviewConverter.toReviewListDTO(found.getContent());
     }
 }
