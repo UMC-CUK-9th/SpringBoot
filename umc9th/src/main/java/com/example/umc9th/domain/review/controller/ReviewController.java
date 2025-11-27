@@ -3,8 +3,10 @@ package com.example.umc9th.domain.review.controller;
 import com.example.umc9th.domain.review.dto.ReviewRequest;
 import com.example.umc9th.domain.review.dto.ReviewResponse;
 import com.example.umc9th.domain.review.service.ReviewService;
+import com.example.umc9th.global.annotation.ValidPage;
 import com.example.umc9th.global.apiPayload.ApiResponse;
 import com.example.umc9th.global.apiPayload.code.GeneralSuccessCode;
+import com.example.umc9th.global.common.PageResponse;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
@@ -40,5 +42,14 @@ public class ReviewController {
         Long reviewId = response.getId();
 
         return ApiResponse.success(GeneralSuccessCode.CREATED, reviewId);
+    }
+
+    @GetMapping("/my")
+    public ApiResponse<PageResponse<ReviewResponse>> getMyReviewPage(
+            @RequestParam Long userId,
+            @ValidPage @RequestParam Integer page
+    ) {
+        PageResponse<ReviewResponse> response = reviewService.getMyReviews(userId, page);
+        return ApiResponse.success(GeneralSuccessCode.SUCCESS, response);
     }
 }

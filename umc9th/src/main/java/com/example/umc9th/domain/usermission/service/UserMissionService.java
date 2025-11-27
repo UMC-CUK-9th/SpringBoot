@@ -4,14 +4,20 @@ import com.example.umc9th.domain.mission.entity.Mission;
 import com.example.umc9th.domain.mission.repository.MissionRepository;
 import com.example.umc9th.domain.user.entity.User;
 import com.example.umc9th.domain.user.repository.UserRepository;
+import com.example.umc9th.domain.usermission.converter.UserMissionConverter;
+import com.example.umc9th.domain.usermission.dto.UserMissionDto;
 import com.example.umc9th.domain.usermission.dto.UserMissionResponse;
 import com.example.umc9th.domain.usermission.entity.UserMission;
 import com.example.umc9th.domain.usermission.entity.UserMissionStatus;
 import com.example.umc9th.domain.usermission.exception.UserMissionErrorCode;
 import com.example.umc9th.domain.usermission.exception.UserMissionException;
 import com.example.umc9th.domain.usermission.repository.UserMissionRepository;
+import com.example.umc9th.global.common.PageResponse;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
+
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -51,4 +57,18 @@ public class UserMissionService {
 
         return userMissionRepository.save(userMission).getId().longValue();
     }
+
+    public PageResponse<UserMissionDto> getInProgressMissions(Long userId, Integer page) {
+        User user = userRepository.findById(userId)
+                .orElseThrow(() -> new UserMissionException(UserMissionErrorCode.USER_NOT_FOUND));
+
+        List<UserMissionStatus> inProgressStatuses = List.of(UserMissionStatus.START, UserMissionStatus.ING);
+        
+        PageRequest pageRequest = PageRequest.of(page - 1, 10);
+        Page<UserMission> userMissionPage = userMissionRepository.findAllByUserAndUserMissionStatusIn(
+                user, inProgressStatuses, pageRequest);
+
+        return UserMissionConverter.toPageResponse(userMissionPage);
+    }
 }
+

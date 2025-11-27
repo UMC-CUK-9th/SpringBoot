@@ -2,7 +2,10 @@ package com.example.umc9th.domain.mission.repository;
 
 import com.example.umc9th.domain.mission.dto.MissionDto;
 import com.example.umc9th.domain.mission.entity.Mission;
+import com.example.umc9th.domain.store.entity.Store;
 import com.example.umc9th.domain.usermission.entity.UserMissionStatus;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -51,5 +54,7 @@ ORDER BY m.id DESC
             @Param("lastMissionId") Long lastMissionId,
             @Param("completedStatus") UserMissionStatus completedStatus
     );
+
+    Page<Mission> findAllByStore(Store store, Pageable pageable);
 
 }

@@ -1,5 +1,6 @@
 package com.example.umc9th.domain.review.service;
 
+import com.example.umc9th.domain.review.converter.ReviewConverter;
 import com.example.umc9th.domain.review.dto.ReviewRequest;
 import com.example.umc9th.domain.review.dto.ReviewResponse;
 import com.example.umc9th.domain.review.entity.QReview;
@@ -11,8 +12,11 @@ import com.example.umc9th.domain.store.entity.Store;
 import com.example.umc9th.domain.store.repository.StoreRepository;
 import com.example.umc9th.domain.user.entity.User;
 import com.example.umc9th.domain.user.repository.UserRepository;
+import com.example.umc9th.global.common.PageResponse;
 import com.querydsl.core.BooleanBuilder;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -98,5 +102,17 @@ public class ReviewService {
                 .build();
     }
 
+    public PageResponse<ReviewResponse> getMyReviews(Long userId, Integer page) {
+
+        User user = userRepository.findById(userId)
+                .orElseThrow(() -> new ReviewException(ReviewErrorCode.USER_NOT_FOUND));
+
+        PageRequest pageRequest = PageRequest.of(page - 1, 10);
+
+        Page<Review> reviewPage = reviewRepository.findAllByUser(user, pageRequest);
+
+        return ReviewConverter.toPageResponse(reviewPage);
+    }
 
 }
+

@@ -1,7 +1,11 @@
 package com.example.umc9th.domain.usermission.repository;
 
+import com.example.umc9th.domain.user.entity.User;
 import com.example.umc9th.domain.usermission.dto.UserMissionResponse;
 import com.example.umc9th.domain.usermission.entity.UserMission;
+import com.example.umc9th.domain.usermission.entity.UserMissionStatus;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -26,5 +30,7 @@ public interface UserMissionRepository extends JpaRepository<UserMission, Long> 
     List<UserMissionResponse> findUserMissionsByUserId(@Param("userId") Long userId);
 
     boolean existsByUserIdAndMissionId(Long userId, Long missionId);
+
+    Page<UserMission> findAllByUserAndUserMissionStatusIn(User user, List<UserMissionStatus> statuses, Pageable pageable);
 
 }
