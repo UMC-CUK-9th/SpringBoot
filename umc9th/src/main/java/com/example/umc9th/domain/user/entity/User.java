@@ -46,6 +46,6 @@ public class User extends BaseEntity {
     @Column(name = "user_phone_number", length = 15, nullable = false)
     private String userPhoneNumber;
 
-    @OneToMany(mappedBy = "users")
+    @OneToMany(mappedBy = "user")
     private List<Review> stores = new ArrayList<>();
 }

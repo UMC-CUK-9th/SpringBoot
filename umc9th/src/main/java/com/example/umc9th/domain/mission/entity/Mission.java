@@ -27,7 +27,8 @@ public class Mission extends BaseEntity {
     @Column(name = "mission_content", nullable = false)
     private String missionContent;
 
-    @Column(name = "mission)_status", nullable = false)
+    @Enumerated(EnumType.STRING)
+    @Column(name = "mission_status", nullable = false)
     private MissionStatus missionStatus;
 
     @Column(name = "mission_point", nullable = false)
