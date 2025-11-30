@@ -1,34 +1,29 @@
 package com.example.demo.domain.reviews.controller;
 
+import com.example.demo.Paging.PageParam;
+import com.example.demo.Paging.PageParamDto;
 import com.example.demo.domain.reviews.Services.Command.ReviewCommandService;
 import com.example.demo.domain.reviews.Services.ReviewQueryService;
-import com.example.demo.domain.reviews.converter.ReviewConverter;
 import com.example.demo.domain.reviews.dto.ReviewReqDto;
 import com.example.demo.domain.reviews.dto.ReviewResDto;
-import com.example.demo.domain.reviews.entity.Reviews;
-import com.example.demo.domain.reviews.exception.ReviewException;
-import com.example.demo.domain.reviews.exception.code.ReviewErrorCode;
 import com.example.demo.domain.reviews.exception.code.ReviewSuccessCode;
-import com.example.demo.domain.stores.entity.Stores;
-import com.example.demo.domain.stores.repository.StoreRepository;
-import com.example.demo.domain.users.entity.Users;
-import com.example.demo.domain.users.repository.UserRepository;
 import com.example.demo.global.apiPayLoad.ApiResponse;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.spi.LocaleNameProvider;
+
 @RestController
-@RequestMapping("/api/reviews")
+@RequestMapping("/reviews")
 @RequiredArgsConstructor
 public class ReviewsController {
 
     private final ReviewQueryService reviewQueryService;
     private final ReviewCommandService reviewCommandService;
-    private final UserRepository userRepository;
-    private final StoreRepository storeRepository;
 
-    // 리뷰 필터링 조회 (Query Service 사용)
+    // 리뷰 검색 (Query Dsl)
     @GetMapping("/search")
     public ApiResponse<ReviewResDto.ReviewList> searchReview(
             @RequestParam String query,
@@ -36,34 +31,41 @@ public class ReviewsController {
     ) {
         return ApiResponse.success(
                 ReviewSuccessCode.REVIEW_SEARCH_SUCCESS,
-                ReviewConverter.toReviewListDTO(
-                        reviewQueryService.searchReview(type, query)
-                )
+                reviewQueryService.searchReview(type, query)
         );
     }
 
-    // 리뷰 생성
+    // 리뷰 작성
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public ApiResponse<ReviewResDto.ReviewInfo> createReview(
-            @RequestBody ReviewReqDto request
+            @RequestBody @Valid ReviewReqDto request
     ) {
-        Users user = userRepository.findById(request.getUserId())
-                .orElseThrow(() -> new ReviewException(ReviewErrorCode.REVIEW_EXCEPTION));
+        ReviewResDto.ReviewInfo result = reviewCommandService.createReview(request);
+        return ApiResponse.success(ReviewSuccessCode.REVIEW_CREATE_SUCCESS, result);
+    }
 
-        Stores store = storeRepository.findById(request.getStoreId())
-                .orElseThrow(() -> new ReviewException(ReviewErrorCode.REVIEW_EXCEPTION));
+    // 내가 작성한 리뷰 조회 (페이징)
+    @GetMapping("/my/{memberId}")
+    public ApiResponse<ReviewResDto.ReviewList> myReviews(
+            @PageParam PageParamDto pageParam,
+            @PathVariable Long memberId
+    ) {
+        ReviewResDto.ReviewList result =
+                reviewCommandService.findReviewsByUser(memberId, pageParam.getPage(), pageParam.getSize());
+        return ApiResponse.success(ReviewSuccessCode.REVIEW_SEARCH_SUCCESS, result);
+    }
 
-        Reviews createdReview = reviewCommandService.createReview(
-                user,
-                store,
-                request.getContent(),
-                request.getRating()
-        );
+    // 특정 가게의 리뷰 조회 (페이징)
+    @GetMapping("/stores/{storeId}")
+    public ApiResponse<ReviewResDto.ReviewList> storesReviews(
+            @Valid
+            @PageParam PageParamDto pageParam,
+            @PathVariable Long storeId
+    ) {
+        ReviewResDto.ReviewList result =
+                reviewCommandService.findReviewsByStore(storeId, pageParam.getPage(), pageParam.getSize());
+        return ApiResponse.success(ReviewSuccessCode.REVIEW_SEARCH_SUCCESS, result);
 
-        return ApiResponse.success(
-                ReviewSuccessCode.REVIEW_CREATE_SUCCESS,
-                ReviewConverter.toReviewInfoDTO(createdReview)
-        );
     }
 }

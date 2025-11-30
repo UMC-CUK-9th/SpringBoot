@@ -7,8 +7,24 @@ import com.example.demo.domain.reviews.entity.mapping.ReviewImages;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import com.example.demo.domain.reviews.dto.ReviewReqDto;
+import com.example.demo.domain.members.entity.Members;
+import com.example.demo.domain.stores.entity.Stores;
+
 public class ReviewConverter {
 
+    public static Reviews toReview(
+            ReviewReqDto request,
+            Members member,
+            Stores store
+    ) {
+        return Reviews.builder()
+                .members(member)
+                .stores(store)
+                .content(request.getContent())
+                .rating(request.getRating())
+                .build();
+    }
     public static ReviewResDto.ReviewInfo toReviewInfoDTO(Reviews review) {
         List<String> imageUrls = review.getReviewsImages()
                 .stream()
@@ -28,7 +44,7 @@ public class ReviewConverter {
     public static ReviewResDto.ReviewList toReviewListDTO(List<Reviews> reviews) {
         List<ReviewResDto.ReviewInfo> reviewInfos = reviews.stream()
                 .map(ReviewConverter::toReviewInfoDTO)
-                .collect(Collectors.toList());
+                .toList();
 
         return ReviewResDto.ReviewList.builder()
                 .reviews(reviewInfos)
