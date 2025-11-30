@@ -1,10 +1,7 @@
 package com.example.umc9th.domain.member.entity;
 
 import com.example.umc9th.domain.inquiry.entity.Inquiry;
-import com.example.umc9th.domain.member.entity.mapping.MemberFoodType;
-import com.example.umc9th.domain.member.entity.mapping.MemberMission;
-import com.example.umc9th.domain.member.entity.mapping.MemberNotification;
-import com.example.umc9th.domain.member.entity.mapping.MemberTerms;
+import com.example.umc9th.domain.member.entity.mapping.*;
 import com.example.umc9th.domain.member.enums.Gender;
 import com.example.umc9th.domain.member.enums.LoginType;
 import com.example.umc9th.domain.member.enums.Status;
@@ -75,6 +72,9 @@ public class Member extends BaseEntity {
 
     @OneToMany(mappedBy = "member")
     private List<MemberTerms> terms = new ArrayList<>();
+
+    @OneToMany(mappedBy = "member")
+    private List<MemberFood> memberFood = new ArrayList<>();
 
     @OneToMany(mappedBy = "member")
     private List<MemberFoodType> foodTypes = new ArrayList<>();

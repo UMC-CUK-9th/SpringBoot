@@ -1,7 +1,8 @@
 package com.example.umc9th.domain.review.controller;
 
-import com.example.umc9th.domain.review.dto.ReviewResponseDto;
-import com.example.umc9th.domain.review.service.ReviewQueryService;
+/*
+import com.example.umc9th.domain.review.dto.Res.ReviewResponseDto;
+import com.example.umc9th.domain.review.service.Query.ReviewQueryServiceImpl;
 import com.example.umc9th.global.apiPayload.ApiResponse;
 import com.example.umc9th.global.apiPayload.code.GeneralSuccessCode;
 import lombok.RequiredArgsConstructor;
@@ -14,7 +15,7 @@ import java.util.List;
 @RequestMapping("/reviews")
 public class ReviewQueryController {
 
-    private final ReviewQueryService reviewQueryService;
+    private final ReviewQueryServiceImpl reviewQueryService;
 
     // 6주차 과제 - 내가 작성한 리뷰 보기 API, QueryDSL로 구현하기
     @GetMapping("/search")
@@ -28,3 +29,4 @@ public class ReviewQueryController {
         return ApiResponse.onSuccess(GeneralSuccessCode.OK, results);
     }
 }
+ */

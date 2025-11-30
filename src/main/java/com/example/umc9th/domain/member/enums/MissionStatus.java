@@ -1,5 +1,5 @@
 package com.example.umc9th.domain.member.enums;
 
 public enum MissionStatus {
-    PROGRESS, COMPLETE, FAIL
+    IN_PROGRESS, COMPLETED, EXPIRED
 }

@@ -3,8 +3,12 @@ package com.example.umc9th.domain.member.repository;
 import com.example.umc9th.domain.member.entity.mapping.MemberMission;
 import com.example.umc9th.domain.member.enums.MissionStatus;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.EntityGraph;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import java.util.Optional;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -20,7 +24,7 @@ public interface MemberMissionRepository extends JpaRepository<MemberMission, Lo
         JOIN FETCH ms.mission m
         JOIN FETCH m.restaurant r
         WHERE ms.member.id = :memberId
-          AND ms.status = :status
+          AND ms.missionStatus = :status
           AND (:cursorTime IS NULL OR m.updatedAt < :cursorTime)
         ORDER BY m.updatedAt DESC
     """)
@@ -37,7 +41,7 @@ public interface MemberMissionRepository extends JpaRepository<MemberMission, Lo
         JOIN FETCH ms.mission m
         JOIN FETCH m.restaurant r
         WHERE ms.member.id = :memberId
-          AND ms.status = :status
+          AND ms.missionStatus = :status
           AND (:cursorTime IS NULL OR m.updatedAt < :cursorTime)
         ORDER BY m.updatedAt DESC
     """)
@@ -53,11 +57,19 @@ public interface MemberMissionRepository extends JpaRepository<MemberMission, Lo
         FROM MemberMission mm
         WHERE mm.member.id = :memberId
           AND mm.mission.restaurant.region = :region
-          AND mm.status = :status
+          AND mm.missionStatus = :status
     """)
     Long countCompletedMissionsInRegion(
             @Param("memberId") Long memberId,
             @Param("region") String region,
             @Param("status") MissionStatus status
     );
+
+    // 8주차 미션 - 4. 가게의 미션을 도전 중인 미션에 추가하기(미션 도전하기) API
+    @EntityGraph(attributePaths = {"mission", "mission.restaurant"})
+    Page<MemberMission> findAllByMemberIdAndMissionStatus(Long memberId, MissionStatus missionStatus, Pageable pageable);
+
+    // 9주차 미션 - 4. 진행중인 미션 진행 완료로 바꾸기 API
+    @EntityGraph(attributePaths = {"mission", "mission.restaurant"})
+    Optional<MemberMission> findByIdAndMemberId(Long id, Long memberId);
 }
