@@ -6,36 +6,15 @@ import lombok.Builder;
 import lombok.Getter;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 public class UserResDTO {
 
     @Builder
     @Getter
-    public static class UserInfoDTO {
-        private Long id;
-        private String name;
-        private Gender gender;
-        private LocalDate birth;
-        private String address;
-    }
-
-    @Builder
-    @Getter
-    public static class UserDetailDTO {
-        private Long id;
-        private String name;
-        private Gender gender;
-        private LocalDate birth;
-        private String address;
-        private String socialUid;
-        private SocialType socialType;
-    }
-
-    @Builder
-    @Getter
-    public static class CreateUserResultDTO {
+    public static class JoinDTO {
         private Long userId;
-        private String name;
-        private SocialType socialType;
+        private LocalDateTime createdAt;
     }
+
 }

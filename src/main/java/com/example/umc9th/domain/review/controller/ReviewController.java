@@ -2,92 +2,61 @@ package com.example.umc9th.domain.review.controller;
 
 import com.example.umc9th.domain.review.dto.req.ReviewReqDTO;
 import com.example.umc9th.domain.review.dto.res.ReviewResDTO;
+import com.example.umc9th.domain.review.entity.Review;
+import com.example.umc9th.domain.review.exception.code.ReviewSuccessCode;
 import com.example.umc9th.domain.review.service.command.ReviewCommandService;
 import com.example.umc9th.domain.review.service.query.ReviewQueryService;
+import com.example.umc9th.global.annotation.CheckPage;
 import com.example.umc9th.global.apiPayload.ApiResponse;
 import com.example.umc9th.global.apiPayload.code.GeneralSuccessCode;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api/v1/reviews")
-public class ReviewController {
+@Validated
+public class ReviewController implements ReviewControllerDocs {
 
     private final ReviewQueryService reviewQueryService;
-    private final ReviewCommandService reviewCommandService;
 
-    /**
-     * 리뷰 기본 정보 조회
-     */
-    @GetMapping("/{reviewId}")
-    public ApiResponse<ReviewResDTO.ReviewInfoDTO> getReviewInfo(
-            @PathVariable Long reviewId
-    ) {
-        GeneralSuccessCode code = GeneralSuccessCode.OK;
-        return ApiResponse.onSuccess(
-                code,
-                reviewQueryService.getReviewInfo(reviewId)
-        );
+    @GetMapping("/search")
+    public ApiResponse<List<Review>> searchReview(
+            @RequestParam String filter,
+            @RequestParam String type
+    ) throws Exception {
+        List<Review> result = reviewQueryService.searchReview(filter, type);
+        return ApiResponse.onSuccess(GeneralSuccessCode.OK, result);
     }
 
-    /**
-     * 리뷰 상세 정보 조회
-     */
-    @GetMapping("/{reviewId}/detail")
-    public ApiResponse<ReviewResDTO.ReviewDetailDTO> getReviewDetail(
-            @PathVariable Long reviewId
-    ) {
+    // 가게의 리뷰 목록 조회
+    @GetMapping("")
+    public ApiResponse<ReviewResDTO.ReviewPreViewListDTO> getReviews(
+            @RequestParam String storeName,
+            @RequestParam Integer page
+    ){
         GeneralSuccessCode code = GeneralSuccessCode.OK;
-        return ApiResponse.onSuccess(
-                code,
-                reviewQueryService.getReviewDetail(reviewId)
-        );
+        return ApiResponse.onSuccess(code, reviewQueryService.findReview(storeName,page));
     }
 
-    /**
-     * 리뷰 생성
-     */
-    @PostMapping
-    public ApiResponse<ReviewResDTO.CreateReviewResultDTO> createReview(
-            @RequestBody ReviewReqDTO.CreateReviewDTO req
+    // 9주차 미션 - 내가 작성한 리뷰 목록 조회
+    @Operation(summary = "내가 작성한 리뷰 목록 조회", description = "사용자가 작성한 리뷰 목록을 페이징하여 조회합니다.")
+    @ApiResponses({
+            @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "200", description = "리뷰 목록 조회 성공"),
+            @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "400", description = "잘못된 페이지 번호")
+    })
+    @GetMapping("/my")
+    public ApiResponse<ReviewResDTO.MyReviewListDTO> getMyReviews(
+            @Parameter(description = "사용자 ID", required = true) @RequestParam Long userId,
+            @Parameter(description = "페이지 번호 (1부터 시작)", required = true) @CheckPage @RequestParam Integer page
     ) {
-        GeneralSuccessCode code = GeneralSuccessCode.CREATED;
-        return ApiResponse.onSuccess(
-                code,
-                reviewCommandService.createReview(req)
-        );
-    }
-
-    /**
-     * 리뷰 정보 수정
-     */
-    @PutMapping("/{reviewId}")
-    public ApiResponse<Void> updateReview(
-            @PathVariable Long reviewId,
-            @RequestBody ReviewReqDTO.UpdateReviewDTO req
-    ) {
-        reviewCommandService.updateReview(reviewId, req);
         GeneralSuccessCode code = GeneralSuccessCode.OK;
-        return ApiResponse.onSuccess(code, null);
-    }
-
-    /**
-     * 리뷰 삭제
-     */
-    @DeleteMapping("/{reviewId}")
-    public ApiResponse<Void> deleteReview(
-            @PathVariable Long reviewId
-    ) {
-        reviewCommandService.deleteReview(reviewId);
-        GeneralSuccessCode code = GeneralSuccessCode.OK;
-        return ApiResponse.onSuccess(code, null);
+        return ApiResponse.onSuccess(code, reviewQueryService.getMyReviews(userId, page));
     }
 }

@@ -14,6 +14,9 @@ public enum MissionErrorCode implements BaseErrorCode {
     INVALID_MISSION_DEADLINE(HttpStatus.BAD_REQUEST, "MISSION400_1", "유효하지 않은 미션 마감일입니다"),
     INVALID_MISSION_POINT(HttpStatus.BAD_REQUEST, "MISSION400_2", "미션 포인트는 0 이상이어야 합니다"),
     MISSION_STORE_NOT_FOUND(HttpStatus.BAD_REQUEST, "MISSION400_3", "해당 상점이 존재하지 않습니다"),
+    // 8주차 과제: 미션 도전하기 API - 추가 에러 코드
+    MISSION_STORE_NOT_MATCH(HttpStatus.BAD_REQUEST, "MISSION400_4", "해당 미션은 이 상점의 미션이 아닙니다"),
+    ALREADY_CHALLENGING_MISSION(HttpStatus.CONFLICT, "MISSION409_1", "이미 도전 중인 미션입니다"),
     ;
 
     private final HttpStatus status;

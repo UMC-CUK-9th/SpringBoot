@@ -24,38 +24,43 @@ import java.util.List;
 @Table(name = "tb_user") //4주차 피드백 user 이름 변경 -> tb_user
 public class User extends BaseEntity {
 
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
-    @Column(name = "name" , length = 3, nullable = false)
+    //스웨거에서 계속 null오류 떠서 일단 null 허용으로 바꿨습니다
+    @Column(name = "name" , length = 3)
     private String name;
 
-    @Column(name = "gender", nullable = false)
+    @Column(name = "gender")
     @Enumerated(EnumType.STRING)
     @Builder.Default
     private Gender gender = Gender.NONE;
 
-    @Column(name = "birth", nullable = false)
+    @Column(name = "birth")
     private LocalDate birth;
 
-    @Column(name = "address", nullable = false)
+    @Column(name = "address")
     private String address;
 
-    @Column(name = "social_uid", nullable = false)
+    @Column(name = "detail_address")
+    private String detailAddress;
+
+    @Column(name = "social_uid")
     private String socialUid;
 
-    @Column(name = "social_type", nullable = false)
+    @Column(name = "social_type")
     @Enumerated(EnumType.STRING)
     private SocialType socialType;
 
-    @Column(name = "point", nullable = false)
-    private Long point;
+    @Column(name = "point")
+    @Builder.Default
+    private Integer point = 0;
 
-    @Column(name = "phone_number", length = 20, nullable = false)
+    @Column(name = "phone_number", length = 20)
     private String phoneNumber;
 
-    @Column(name = "email", length = 30, nullable = false)
+    @Column(name = "email", length = 30)
     private String email;
 
 

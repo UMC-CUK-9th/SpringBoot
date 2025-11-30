@@ -8,14 +8,20 @@ import com.example.umc9th.domain.review.exception.ReviewException;
 import com.example.umc9th.domain.review.exception.code.ReviewErrorCode;
 import com.example.umc9th.domain.review.repository.ReviewRepository;
 import com.example.umc9th.domain.store.entity.Store;
+import com.example.umc9th.domain.store.exception.StoreException;
+import com.example.umc9th.domain.store.exception.code.StoreErrorCode;
 import com.example.umc9th.domain.store.repository.StoreRepository;
 import com.example.umc9th.domain.user.entity.User;
+import com.example.umc9th.domain.user.exception.UserException;
+import com.example.umc9th.domain.user.exception.code.UserErrorCode;
 import com.example.umc9th.domain.user.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @RequiredArgsConstructor
+@Transactional
 public class ReviewCommandServiceImpl implements ReviewCommandService {
 
     private final ReviewRepository reviewRepository;
@@ -40,6 +46,40 @@ public class ReviewCommandServiceImpl implements ReviewCommandService {
         // User 존재 여부 확인
         User user = userRepository.findById(req.getUserId())
                 .orElseThrow(() -> new ReviewException(ReviewErrorCode.REVIEW_USER_NOT_FOUND));
+
+        // Review Entity 생성 및 저장
+        Review review = Review.builder()
+                .content(req.getContent())
+                .star(req.getStar())
+                .store(store)
+                .user(user)
+                .build();
+
+        Review savedReview = reviewRepository.save(review);
+
+        return ReviewConverter.toCreateReviewResultDTO(savedReview);
+    }
+
+    // 8주차 과제: 가게에 리뷰 추가하기 API
+    @Override
+    public ReviewResDTO.CreateReviewResultDTO createReviewForStore(Long storeId, ReviewReqDTO.CreateReviewDTO req) {
+        // 유효성 검사
+        if (req.getContent() == null || req.getContent().isEmpty()) {
+            throw new ReviewException(ReviewErrorCode.REVIEW_CONTENT_EMPTY);
+        }
+
+        if (req.getStar() == null || req.getStar() < 0.5f || req.getStar() > 5.0f) {
+            throw new ReviewException(ReviewErrorCode.INVALID_REVIEW_STAR);
+        }
+
+        // Store 존재 여부 확인
+        Store store = storeRepository.findById(storeId)
+                .orElseThrow(() -> new StoreException(StoreErrorCode.STORE_NOT_FOUND));
+
+        // 하드코딩된 User ID (DB에 있는 첫 번째 사용자 사용)
+        User user = userRepository.findAll().stream()
+                .findFirst()
+                .orElseThrow(() -> new UserException(UserErrorCode.USER_NOT_FOUND));
 
         // Review Entity 생성 및 저장
         Review review = Review.builder()

@@ -4,9 +4,14 @@ import com.example.umc9th.domain.mission.dto.req.MissionReqDTO;
 import com.example.umc9th.domain.mission.dto.res.MissionResDTO;
 import com.example.umc9th.domain.mission.service.command.MissionCommandService;
 import com.example.umc9th.domain.mission.service.query.MissionQueryService;
+import com.example.umc9th.global.annotation.CheckPage;
 import com.example.umc9th.global.apiPayload.ApiResponse;
 import com.example.umc9th.global.apiPayload.code.GeneralSuccessCode;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import lombok.RequiredArgsConstructor;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -14,11 +19,13 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api/v1/missions")
+@Validated
 public class MissionController {
 
     private final MissionQueryService missionQueryService;
@@ -89,5 +96,35 @@ public class MissionController {
         missionCommandService.deleteMission(missionId);
         GeneralSuccessCode code = GeneralSuccessCode.OK;
         return ApiResponse.onSuccess(code, null);
+    }
+
+    // 9주차 미션 - 특정 가게의 미션 목록 조회
+    @Operation(summary = "특정 가게의 미션 목록 조회", description = "특정 가게에 등록된 미션 목록을 페이징하여 조회합니다.")
+    @ApiResponses({
+            @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "200", description = "미션 목록 조회 성공"),
+            @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "400", description = "잘못된 페이지 번호")
+    })
+    @GetMapping("/store/{storeId}")
+    public ApiResponse<MissionResDTO.StoreMissionListDTO> getStoreMissions(
+            @Parameter(description = "가게 ID", required = true) @PathVariable Long storeId,
+            @Parameter(description = "페이지 번호 (1부터 시작)", required = true) @CheckPage @RequestParam Integer page
+    ) {
+        GeneralSuccessCode code = GeneralSuccessCode.OK;
+        return ApiResponse.onSuccess(code, missionQueryService.getStoreMissions(storeId, page));
+    }
+
+    // 9주차 미션 - 내가 진행중인 미션 목록 조회
+    @Operation(summary = "내가 진행중인 미션 목록 조회", description = "사용자가 진행중인 미션 목록을 페이징하여 조회합니다.")
+    @ApiResponses({
+            @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "200", description = "진행중인 미션 목록 조회 성공"),
+            @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "400", description = "잘못된 페이지 번호")
+    })
+    @GetMapping("/my/challenging")
+    public ApiResponse<MissionResDTO.MyChallengingMissionListDTO> getMyChallengingMissions(
+            @Parameter(description = "사용자 ID", required = true) @RequestParam Long userId,
+            @Parameter(description = "페이지 번호 (1부터 시작)", required = true) @CheckPage @RequestParam Integer page
+    ) {
+        GeneralSuccessCode code = GeneralSuccessCode.OK;
+        return ApiResponse.onSuccess(code, missionQueryService.getMyChallengingMissions(userId, page));
     }
 }

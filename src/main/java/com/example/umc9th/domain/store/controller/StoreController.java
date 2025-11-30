@@ -1,5 +1,11 @@
 package com.example.umc9th.domain.store.controller;
 
+import com.example.umc9th.domain.mission.dto.req.MissionReqDTO;
+import com.example.umc9th.domain.mission.dto.res.MissionResDTO;
+import com.example.umc9th.domain.mission.service.command.MissionCommandService;
+import com.example.umc9th.domain.review.dto.req.ReviewReqDTO;
+import com.example.umc9th.domain.review.dto.res.ReviewResDTO;
+import com.example.umc9th.domain.review.service.command.ReviewCommandService;
 import com.example.umc9th.domain.store.dto.req.StoreReqDTO;
 import com.example.umc9th.domain.store.dto.res.StoreResDTO;
 import com.example.umc9th.domain.store.service.command.StoreCommandService;
@@ -23,6 +29,8 @@ public class StoreController {
 
     private final StoreQueryService storeQueryService;
     private final StoreCommandService storeCommandService;
+    private final ReviewCommandService reviewCommandService;
+    private final MissionCommandService missionCommandService;
 
     /**
      * 상점 기본 정보 조회
@@ -89,5 +97,35 @@ public class StoreController {
         storeCommandService.deleteStore(storeId);
         GeneralSuccessCode code = GeneralSuccessCode.OK;
         return ApiResponse.onSuccess(code, null);
+    }
+
+     //8주차 과제: 가게에 리뷰 추가하기 API
+     //가게에 리뷰 추가하기
+     //로그인 기능 없음 - 하드코딩된 userId 사용 (DB에 있는 임의의 유저)
+    @PostMapping("/{storeId}/reviews")
+    public ApiResponse<ReviewResDTO.CreateReviewResultDTO> addReviewToStore(
+            @PathVariable Long storeId,
+            @RequestBody ReviewReqDTO.CreateReviewDTO req
+    ) {
+        GeneralSuccessCode code = GeneralSuccessCode.CREATED;
+        return ApiResponse.onSuccess(
+                code,
+                reviewCommandService.createReviewForStore(storeId, req)
+        );
+    }
+
+// 8주차 과제: 미션 도전하기 API
+//가게의 미션을 도전 중인 미션에 추가 (미션 도전하기)
+//로그인 기능 없음 - 하드코딩된 userId 사용 (DB에 있는 임의의 유저)
+    @PostMapping("/{storeId}/missions/{missionId}/challenge")
+    public ApiResponse<MissionResDTO.ChallengeMissionResultDTO> challengeMission(
+            @PathVariable Long storeId,
+            @PathVariable Long missionId
+    ) {
+        GeneralSuccessCode code = GeneralSuccessCode.CREATED;
+        return ApiResponse.onSuccess(
+                code,
+                missionCommandService.challengeMission(storeId, missionId)
+        );
     }
 }
