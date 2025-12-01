@@ -1,10 +1,7 @@
 package com.example.umc9th.domain.review.controller;
 
-import com.example.umc9th.domain.review.dto.req.ReviewReqDTO;
 import com.example.umc9th.domain.review.dto.res.ReviewResDTO;
 import com.example.umc9th.domain.review.entity.Review;
-import com.example.umc9th.domain.review.exception.code.ReviewSuccessCode;
-import com.example.umc9th.domain.review.service.command.ReviewCommandService;
 import com.example.umc9th.domain.review.service.query.ReviewQueryService;
 import com.example.umc9th.global.annotation.CheckPage;
 import com.example.umc9th.global.apiPayload.ApiResponse;
@@ -22,7 +19,7 @@ import java.util.List;
 @RequiredArgsConstructor
 @RequestMapping("/api/v1/reviews")
 @Validated
-public class ReviewController implements ReviewControllerDocs {
+public class ReviewController {
 
     private final ReviewQueryService reviewQueryService;
 
@@ -36,6 +33,14 @@ public class ReviewController implements ReviewControllerDocs {
     }
 
     // 가게의 리뷰 목록 조회
+    @Operation(
+            summary = "가게의 리뷰 목록 조회 API By 이훈 (개발 중)",
+            description = "특정 가게의 리뷰를 모두 조회합니다. 페이지네이션으로 제공합니다."
+    )
+    @ApiResponses({
+            @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "200", description = "성공"),
+            @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "400", description = "실패")
+    })
     @GetMapping("")
     public ApiResponse<ReviewResDTO.ReviewPreViewListDTO> getReviews(
             @RequestParam String storeName,

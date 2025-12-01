@@ -4,6 +4,7 @@ import com.example.umc9th.domain.user.entity.mapping.UserFood;
 import com.example.umc9th.domain.user.entity.mapping.UserTerm;
 import com.example.umc9th.domain.user.enums.Gender;
 import com.example.umc9th.domain.user.enums.SocialType;
+import com.example.umc9th.global.auth.enums.Role;
 import com.example.umc9th.global.entity.BaseEntity;
 import jakarta.persistence.*;
 import lombok.*;
@@ -60,8 +61,14 @@ public class User extends BaseEntity {
     @Column(name = "phone_number", length = 20)
     private String phoneNumber;
 
-    @Column(name = "email", length = 30)
+    @Column(name = "email", nullable = false, unique = true)
     private String email;
+
+    @Column(name="password", nullable = false) //10주차 추가 컬럼
+    private String password;
+
+    @Enumerated(EnumType.STRING) //10주차 추가 컬럼
+    private Role role;
 
 
 

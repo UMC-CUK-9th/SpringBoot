@@ -3,6 +3,7 @@ package com.example.umc9th.domain.user.dto.req;
 import com.example.umc9th.domain.user.enums.Gender;
 import com.example.umc9th.domain.user.enums.SocialType;
 import com.example.umc9th.global.annotation.ExistFoods;
+import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
@@ -15,23 +16,32 @@ import java.util.List;
 
 public class UserReqDTO {
 
-    @Builder
-    @Getter
-    @NoArgsConstructor
-    @AllArgsConstructor
-    public static class JoinDTO {
+    //10주차 래코드 타입 변경
+    public record JoinDTO (
         @NotBlank
-        private String name;
+        String name,
+        @Email
+        String email, // 10주차 추가 dto
+        @NotBlank
+        String password, // 10주차 추가 dto
         @NotNull
-        private Gender gender;
+        Gender gender,
         @NotNull
-        private LocalDate birth;
+        LocalDate birth,
         @NotNull
-        private String address;
+        String address,
         @NotNull
-        private String specAddress;
+        String specAddress,
         @ExistFoods
-        private List<Long> preferCategory;
-    }
+        List<Long> preferCategory
+    ){}
+
+    //로그인
+    public record LoginDTO (
+            @NotBlank
+            String email,
+            @NotBlank
+            String password
+    ){}
 
 }
