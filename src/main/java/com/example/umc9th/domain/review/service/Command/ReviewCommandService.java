@@ -1,7 +1,7 @@
 package com.example.umc9th.domain.review.service.Command;
 
-import com.example.umc9th.domain.review.dto.Req.ReviewReqDTO;
-import com.example.umc9th.domain.review.dto.Res.ReviewResDTO;
+import com.example.umc9th.domain.review.dto.req.ReviewReqDTO;
+import com.example.umc9th.domain.review.dto.res.ReviewResDTO;
 
 public interface ReviewCommandService {
 

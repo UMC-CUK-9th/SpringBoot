@@ -16,4 +16,7 @@ public interface MemberRepository extends JpaRepository<Member, Long> {
     // 5주차 피드백 반영 - @query 어노테이션 사용
     @Query("select m from Member m where m.name = :name and m.inactiveDate is null")
     List<Member> findActiveMember(@Param("name") String name);
+
+    // 10주차 예제 - 1. 간단한 로그인 및 회원가입 구현 (Session 방식)
+    Optional<Member> findByEmail(String email);
 }

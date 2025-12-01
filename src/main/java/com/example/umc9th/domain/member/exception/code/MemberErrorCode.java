@@ -12,6 +12,10 @@ public enum MemberErrorCode implements BaseErrorCode {
     MEMBER_NOT_FOUND(HttpStatus.NOT_FOUND,
             "MEMBER404_1",
             "해당 사용자를 찾지 못했습니다."),
+
+    MEMBER_INVALID(HttpStatus.UNAUTHORIZED,
+            "MEMBER401_1",
+            "유효하지 않은 자격 증명입니다."),
     ;
 
     private final HttpStatus status;

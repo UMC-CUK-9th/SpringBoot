@@ -17,15 +17,29 @@ public interface MemberControllerDocs {
 
     @Operation(
             summary = "회원가입 API By 노바 (개발 완료)",
-            description = "이메일, 비밀번호, 닉네임 등의 정보로 회원을 등록합니다."
+            description = "Session 방식으로 회원을 등록합니다."
     )
     @ApiResponses({
             @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "201", description = "회원가입 성공"),
             @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "400", description = "잘못된 요청 값")
     })
-    @PostMapping("/members")
+    @PostMapping("/sign-up")
     ApiResponse<MemberResDTO.JoinDTO> signUp(
             @RequestBody(description = "회원가입 요청 바디", required = true)
             @Valid MemberReqDTO.JoinDTO dto
+    );
+
+    @Operation(
+            summary = "로그인 API By 노바 (개발 완료)",
+            description = "JWT Token 방식으로 로그인을 진행합니다."
+    )
+    @ApiResponses({
+            @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "201", description = "회원가입 성공"),
+            @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "400", description = "잘못된 요청 값")
+    })
+    @PostMapping("/login")
+    ApiResponse<MemberResDTO.LoginDTO> login(
+            @RequestBody(description = "회원가입 요청 바디", required = true)
+            @Valid MemberReqDTO.LoginDTO dto
     );
 }

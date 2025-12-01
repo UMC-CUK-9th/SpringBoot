@@ -2,8 +2,6 @@ package com.example.umc9th.domain.review.entity;
 
 import com.example.umc9th.domain.member.entity.Member;
 import com.example.umc9th.domain.restaurant.entity.Restaurant;
-import com.example.umc9th.domain.review.dto.Res.ReviewResDTO;
-import com.example.umc9th.domain.review.entity.ReviewPhoto;
 import com.example.umc9th.global.entity.BaseEntity;
 import jakarta.persistence.*;
 import lombok.*;
