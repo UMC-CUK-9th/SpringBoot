@@ -24,14 +24,17 @@ public class User extends BaseEntity {
     @Column(name = "user_name", length = 5, nullable = false)
     private String userName;
 
-    @Column(length = 10, nullable = false)
+    @Column(length = 10, nullable = true)
     private String nickname;
 
-    @Column(name = "user_password", length = 15, nullable = false)
+    @Column(name = "user_password", nullable = false)
     private String userPassword;
 
     @Column(length = 25, nullable = false)
     private String email;
+
+    @Enumerated(EnumType.STRING)
+    private Role role;
 
     @Enumerated(EnumType.STRING)
     @Column(name = "user_status", nullable = false)
