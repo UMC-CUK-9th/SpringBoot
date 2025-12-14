@@ -3,14 +3,20 @@ package com.example.chunsam.domain.auth.controller;
 import com.example.chunsam.domain.auth.dto.req.LoginReq;
 import com.example.chunsam.domain.auth.dto.req.SignupReq;
 import com.example.chunsam.domain.auth.dto.res.LoginRes;
+import com.example.chunsam.domain.auth.dto.res.LoginResjwt;
 import com.example.chunsam.domain.auth.dto.res.LogoutRes;
 import com.example.chunsam.domain.auth.dto.res.SignupRes;
 import com.example.chunsam.domain.auth.exception.AuthException;
 import com.example.chunsam.domain.auth.exception.code.AuthErrorCode;
 import com.example.chunsam.domain.auth.service.CustomUserDetails;
 import com.example.chunsam.domain.auth.service.command.AuthService;
+import com.example.chunsam.domain.member.entity.Member;
+import com.example.chunsam.domain.member.exception.MemberException;
+import com.example.chunsam.domain.member.exception.code.MemberErrorCode;
+import com.example.chunsam.domain.member.repo.MemberRepository;
 import com.example.chunsam.global.apiPayload.ApiResponse;
 import com.example.chunsam.global.apiPayload.code.GeneralSuccessCode;
+import com.example.chunsam.global.jwt.JwtUtil;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
@@ -21,6 +27,7 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.context.HttpSessionSecurityContextRepository;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -34,6 +41,9 @@ public class AuthController {
 
     private final AuthService authService;
     private final AuthenticationManager authenticationManager; // ✅ 추가
+    private final MemberRepository memberRepository;
+    private final PasswordEncoder encoder;
+    private final JwtUtil jwtUtil;
 
     @PostMapping("/signup")
     public ApiResponse<SignupRes> signup(@Valid @RequestBody SignupReq request) {
@@ -90,6 +100,41 @@ public class AuthController {
             throw new AuthException(AuthErrorCode.Wrong_Passwd_ID);
         }
     }
+
+    @PostMapping("/loginjwt")
+    public ApiResponse<LoginResjwt> loginjwt(
+            @Valid @RequestBody LoginReq request,
+            HttpServletRequest httpRequest
+    ) {
+
+
+        // Member 조회
+        Member member = memberRepository.findByUserId(request.getUsername())
+                .orElseThrow(() -> new MemberException(MemberErrorCode.Member_Wrong));
+
+        // 비밀번호 검증
+        if (!encoder.matches(request.getPassword(), member.getPassword())){
+            throw new AuthException(AuthErrorCode.Wrong_Passwd_ID);
+        }
+
+        CustomUserDetails userDetails = new CustomUserDetails(member);
+
+        // 엑세스 토큰 발급
+        String accessToken = jwtUtil.createAccessToken(userDetails);
+
+        LoginResjwt result= new LoginResjwt(true,
+                accessToken,
+                member.getId(),
+                member.getUserId(),
+                member.getName()
+        );
+
+
+        // DTO 조립
+        return ApiResponse.onSuccess(GeneralSuccessCode.SUCCESS, result);
+
+    }
+
 
     /**
      * 로그아웃 (세션 무효화)
