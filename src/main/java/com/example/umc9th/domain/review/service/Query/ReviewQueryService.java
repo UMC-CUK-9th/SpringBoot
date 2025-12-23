@@ -1,6 +1,6 @@
 package com.example.umc9th.domain.review.service.Query;
 
-import com.example.umc9th.domain.review.dto.Res.ReviewResDTO;
+import com.example.umc9th.domain.review.dto.res.ReviewResDTO;
 
 public interface ReviewQueryService {
 

@@ -11,11 +11,12 @@ import com.example.umc9th.domain.member.exception.code.FoodErrorCode;
 import com.example.umc9th.domain.member.repository.FoodRepository;
 import com.example.umc9th.domain.member.repository.MemberFoodRepository;
 import com.example.umc9th.domain.member.repository.MemberRepository;
+import com.example.umc9th.global.auth.enums.Role;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -26,21 +27,28 @@ public class MemberCommandServiceImpl implements MemberCommandService{
     private final MemberRepository memberRepository;
     private final MemberFoodRepository memberFoodRepository;
     private final FoodRepository foodRepository;
+    // Password Encoder
+    private final PasswordEncoder passwordEncoder;
 
     // 8주차 예제 - 회원가입 API
+    // 10주차 예제 - 1. 간단한 로그인 및 회원가입 구현 (Session 방식)
     @Override
     @Transactional
     public MemberResDTO.JoinDTO signup(
             MemberReqDTO.JoinDTO dto
     ){
-        // 사용자 생성
-        Member member = MemberConverter.toMember(dto);
+        // 솔트된 비밀번호 생성
+        String salt = passwordEncoder.encode(dto.password());
+
+        // 사용자 생성: 유저 / 관리자는 따로 API 만들어서 관리
+        Member member = MemberConverter.toMember(dto, salt, Role.ROLE_USER);
 
         // 선호 음식 존재 여부 확인 (stream())
-        if (dto.preferCategory().size() > 1){            List<MemberFood> memberFood = dto.preferCategory().stream()
+        if (dto.preferCategory() != null && !dto.preferCategory().isEmpty()){
+            List<MemberFood> memberFood = dto.preferCategory().stream()
                     .map(id -> MemberFood.builder()
                             .member(member)
-                            .member(foodRepository.findById(id)
+                            .food(foodRepository.findById(id)
                                     .orElseThrow(() -> new FoodException(FoodErrorCode.FOOD_NOT_FOUND)))
                             .build()
                     )

@@ -3,8 +3,8 @@ package com.example.umc9th.domain.review.converter;
 
 import com.example.umc9th.domain.member.entity.Member;
 import com.example.umc9th.domain.restaurant.entity.Restaurant;
-import com.example.umc9th.domain.review.dto.Req.ReviewReqDTO;
-import com.example.umc9th.domain.review.dto.Res.ReviewResDTO;
+import com.example.umc9th.domain.review.dto.req.ReviewReqDTO;
+import com.example.umc9th.domain.review.dto.res.ReviewResDTO;
 import com.example.umc9th.domain.review.entity.Review;
 import org.springframework.data.domain.Page;
 

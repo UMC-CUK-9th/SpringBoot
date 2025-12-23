@@ -1,8 +1,8 @@
 package com.example.umc9th.domain.review.controller;
 
 
-import com.example.umc9th.domain.review.dto.Req.ReviewReqDTO;
-import com.example.umc9th.domain.review.dto.Res.ReviewResDTO;
+import com.example.umc9th.domain.review.dto.req.ReviewReqDTO;
+import com.example.umc9th.domain.review.dto.res.ReviewResDTO;
 import com.example.umc9th.global.apiPayload.ApiResponse;
 import com.example.umc9th.global.validator.ValidPage;
 import io.swagger.v3.oas.annotations.Operation;

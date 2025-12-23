@@ -1,8 +1,8 @@
 package com.example.umc9th.domain.review.controller;
 
 import com.example.umc9th.domain.review.Exception.code.ReviewSuccessCode;
-import com.example.umc9th.domain.review.dto.Req.ReviewReqDTO;
-import com.example.umc9th.domain.review.dto.Res.ReviewResDTO;
+import com.example.umc9th.domain.review.dto.req.ReviewReqDTO;
+import com.example.umc9th.domain.review.dto.res.ReviewResDTO;
 import com.example.umc9th.domain.review.service.Command.ReviewCommandService;
 import com.example.umc9th.domain.review.service.Query.ReviewQueryService;
 import com.example.umc9th.global.apiPayload.ApiResponse;

@@ -9,19 +9,15 @@ import com.example.umc9th.domain.restaurant.exception.RestaurantException;
 import com.example.umc9th.domain.restaurant.exception.code.RestaurantErrorCode;
 import com.example.umc9th.domain.restaurant.repository.RestaurantRepository;
 import com.example.umc9th.domain.review.converter.ReviewConverter;
-import com.example.umc9th.domain.review.dto.Res.ReviewResDTO;
+import com.example.umc9th.domain.review.dto.res.ReviewResDTO;
 // import com.example.umc9th.domain.review.dto.Res.ReviewResponseDto;
 import com.example.umc9th.domain.review.entity.Review;
 import com.example.umc9th.domain.review.repository.ReviewRepository;
-import com.querydsl.core.BooleanBuilder;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
-
-import com.example.umc9th.domain.review.entity.QReview;
 import org.springframework.transaction.annotation.Transactional;
 
 @Service

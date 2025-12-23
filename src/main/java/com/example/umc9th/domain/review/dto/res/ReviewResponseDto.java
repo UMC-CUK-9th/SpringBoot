@@ -1,4 +1,4 @@
-package com.example.umc9th.domain.review.dto.Res;
+package com.example.umc9th.domain.review.dto.res;
 
 /*
 import lombok.Getter;

@@ -1,4 +1,4 @@
-package com.example.umc9th.domain.review.dto.Req;
+package com.example.umc9th.domain.review.dto.req;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.*;
