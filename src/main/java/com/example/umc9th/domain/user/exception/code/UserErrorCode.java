@@ -15,6 +15,8 @@ public enum UserErrorCode implements BaseErrorCode {
     INVALID_USER_BIRTH(HttpStatus.BAD_REQUEST, "USER400_2", "유효하지 않은 생년월일입니다"),
     USER_ADDRESS_EMPTY(HttpStatus.BAD_REQUEST, "USER400_3", "주소를 입력해야 합니다"),
     DUPLICATE_SOCIAL_UID(HttpStatus.CONFLICT, "USER409_1", "이미 가입된 소셜 계정입니다"),
+    INVALID(HttpStatus.UNAUTHORIZED, "USER401_1", "비밀번호가 일치하지 않습니다"),
+
     ;
 
     private final HttpStatus status;
