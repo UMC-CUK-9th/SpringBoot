@@ -14,23 +14,18 @@ public class SwaggerConfig {
     @Bean
     public OpenAPI swaggerOpenAPI() {
 
-        final String JWT_SCHEME_NAME = "JWT";
-
         return new OpenAPI()
+                .addSecurityItem(new SecurityRequirement().addList("Bearer Auth"))
+                .components(new Components().addSecuritySchemes("Bearer Auth",
+                        new SecurityScheme()
+                                .name("Bearer Auth")
+                                .type(SecurityScheme.Type.HTTP)
+                                .scheme("bearer")
+                                .bearerFormat("JWT")))
                 .info(new Info()
                         .title("Project API")
                         .description("Project Swagger API Docs")
                         .version("0.0.1")
-                )
-                .components(new Components()
-                        .addSecuritySchemes(JWT_SCHEME_NAME,
-                                new SecurityScheme()
-                                        .name(JWT_SCHEME_NAME)
-                                        .type(SecurityScheme.Type.HTTP)
-                                        .scheme("bearer")
-                                        .bearerFormat("JWT")
-                        )
-                )
-                .addSecurityItem(new SecurityRequirement().addList(JWT_SCHEME_NAME));
+                );
     }
 }
